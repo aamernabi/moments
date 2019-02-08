@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android" xmlns:app="http://schemas.android.com/apk/res-auto">
+
+    <data>
+        <variable name="listener" type="android.view.View.OnClickListener"/>
+        <variable
+            name="photo"
+            type="com.aamernabi.moments.datasource.remote.photos.Photo"/>
+    </data>
+
+    <FrameLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:onClick="@{listener}"
+        android:background="?attr/selectableItemBackground">
+
+        <ImageView
+            android:layout_width="@dimen/photo_width"
+            android:layout_height="@dimen/photo_height"
+            android:layout_gravity="center"
+            android:background="@drawable/ic_photo"
+            android:padding="36dp"
+            app:setImageUrl="@{photo.urls.thumb}"
+            android:contentDescription="@string/app_name"/>
+
+    </FrameLayout>
+
+</layout>
