@@ -1,6 +1,6 @@
 package com.aamernabi.moments.datasource.remote.photos
 
-import com.aamernabi.moments.datasource.remote.RetrofitFactory
+import com.aamernabi.moments.datasource.remote.UnsplashApi
 
 class PhotosService {
 
@@ -8,7 +8,7 @@ class PhotosService {
         val instance: PhotosService by lazy { PhotosService() }
     }
 
-    private val service = RetrofitFactory.getInstance().create(PhotosApiInterface::class.java)
+    private val service = UnsplashApi.getInstance()
 
     suspend fun getPhotos(page: Int, perPage: Int): List<Photo> {
         val request = service.getPhotosAsync(page, perPage)
