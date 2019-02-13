@@ -13,24 +13,22 @@ import kotlinx.android.synthetic.main.content_main.*
 
 class MainActivity : AppCompatActivity(), OnItemClickListener {
 
-    private lateinit var viewModel: PhotosViewModel
-
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
         setSupportActionBar(toolbar)
 
-        viewModel = ViewModelProviders.of(this).get(PhotosViewModel::class.java)
-        viewModel.getPhotos()
+        val adapter = PhotoAdapter(this)
+        recycler_view.adapter = adapter
 
-        attachObservers()
+        attachObservers(adapter)
     }
 
-    private fun attachObservers() {
+    private fun attachObservers(adapter: PhotoAdapter) {
+        val viewModel = ViewModelProviders.of(this).get(PhotosViewModel::class.java)
         viewModel.photos.observe(this, Observer {
             it ?: return@Observer
-            recycler_view.adapter = PhotoAdapter(this, it)
-            recycler_view.adapter?.notifyDataSetChanged()
+            adapter.submitList(it)
         })
     }
 
