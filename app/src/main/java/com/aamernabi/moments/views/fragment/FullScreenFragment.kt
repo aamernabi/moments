@@ -10,6 +10,7 @@ import android.view.ViewGroup
 
 import com.aamernabi.moments.R
 import com.aamernabi.moments.viewmodels.PhotosViewModel
+import com.aamernabi.moments.views.MainActivity
 import com.aamernabi.moments.views.adapter.FullScreenAdapter
 import kotlinx.android.synthetic.main.fragment_full_screen.*
 
@@ -32,7 +33,11 @@ class FullScreenFragment : Fragment() {
         val photos = viewModel?.photos?.value ?: return
         view_pager.adapter = FullScreenAdapter(photos)
         view_pager.currentItem = viewModel?.currentIndex ?: 0
-
     }
 
+    override fun onResume() {
+        super.onResume()
+
+        (activity as MainActivity?)?.hideToolbar()
+    }
 }
