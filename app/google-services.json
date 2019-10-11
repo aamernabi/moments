@@ -1,0 +1,42 @@
+{
+  "project_info": {
+    "project_number": "55471060114",
+    "firebase_url": "https://moments-3f2fb.firebaseio.com",
+    "project_id": "moments-3f2fb",
+    "storage_bucket": "moments-3f2fb.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:55471060114:android:502e92d1fbe46c9f",
+        "android_client_info": {
+          "package_name": "com.aamernabi.moments"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "55471060114-fc0o43epkqqkmfk8amruug15n71kvrh0.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyAga49a-3KmHw8O54b2cU_1HMqBE_AqzMk"
+        }
+      ],
+      "services": {
+        "analytics_service": {
+          "status": 1
+        },
+        "appinvite_service": {
+          "status": 1,
+          "other_platform_oauth_client": []
+        },
+        "ads_service": {
+          "status": 2
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

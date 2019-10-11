@@ -12,6 +12,7 @@ import kotlinx.coroutines.Job
 
 class PhotosViewModel : ViewModel() {
 
+    var currentIndex = 0
     private var state: NetworkState<Nothing>? = null
     private var job: Job? = null
 
