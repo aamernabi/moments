@@ -1,6 +1,7 @@
 package com.aamernabi.moments.views.fragment
 
 
+import android.arch.lifecycle.Observer
 import android.arch.lifecycle.ViewModelProviders
 import android.os.Bundle
 import android.support.v4.app.Fragment
@@ -31,13 +32,21 @@ class FullScreenFragment : Fragment() {
         super.onViewCreated(view, savedInstanceState)
 
         val photos = viewModel?.photos?.value ?: return
-        view_pager.adapter = FullScreenAdapter(photos)
+        view_pager.adapter = FullScreenAdapter().apply { addAll(photos) }
         view_pager.currentItem = viewModel?.currentIndex ?: 0
+
+        attachPhotosObserver()
     }
 
     override fun onResume() {
         super.onResume()
 
         (activity as MainActivity?)?.hideToolbar()
+    }
+
+    private fun attachPhotosObserver() {
+        viewModel?.photos?.observe(this, Observer { photos ->
+            (view_pager.adapter as FullScreenAdapter?)?.addAll(photos ?: return@Observer)
+        })
     }
 }
