@@ -1,8 +1,16 @@
+import com.github.spotbugs.SpotBugsTask
+
+project.extensions.extraProperties.set('SpotBugsTask', SpotBugsTask)
+
 apply plugin: 'com.android.application'
 apply plugin: 'kotlin-android'
 apply plugin: 'kotlin-android-extensions'
 apply plugin: 'kotlin-kapt'
 apply plugin: 'io.fabric'
+apply from: "$project.rootDir/tools/script-lint.gradle"
+apply from: "$project.rootDir/tools/script-spot-bugs.gradle"
+apply from: "$project.rootDir/tools/script-pmd.gradle"
+
 
 android {
     compileSdkVersion 28

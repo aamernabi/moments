@@ -18,9 +18,9 @@ import com.bumptech.glide.request.RequestListener
 import com.bumptech.glide.request.target.Target
 import com.google.firebase.analytics.FirebaseAnalytics
 
-class FullScreenAdapter(
-    private val photos: List<Photo>
-) : PagerAdapter() {
+class FullScreenAdapter : PagerAdapter() {
+
+    private val photos: MutableList<Photo> = mutableListOf()
 
     override fun isViewFromObject(view: View, `object`: Any) = view == `object`
 
@@ -67,6 +67,11 @@ class FullScreenAdapter(
 
     override fun destroyItem(container: ViewGroup, position: Int, `object`: Any) {
         container.removeView(`object` as ConstraintLayout?)
+    }
+
+    fun addAll(list: List<Photo>) {
+        photos.addAll(list)
+        notifyDataSetChanged()
     }
 
 }
