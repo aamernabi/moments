@@ -1,6 +1,6 @@
 package com.aamernabi.moments.datasource
 
-import android.arch.paging.DataSource
+import androidx.paging.DataSource
 import com.aamernabi.moments.datasource.remote.NetworkState
 import com.aamernabi.moments.datasource.remote.photos.Photo
 import com.aamernabi.moments.datasource.remote.photos.PhotosService

@@ -2,8 +2,8 @@ package com.aamernabi.moments.views.adapter
 
 import android.graphics.drawable.Drawable
 import android.os.Bundle
-import android.support.constraint.ConstraintLayout
-import android.support.v4.view.PagerAdapter
+import androidx.constraintlayout.widget.ConstraintLayout
+import androidx.viewpager.widget.PagerAdapter
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup

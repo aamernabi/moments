@@ -1,11 +1,11 @@
 package com.aamernabi.moments.views.adapter
 
-import android.arch.paging.PagedListAdapter
-import android.databinding.DataBindingUtil
-import android.support.v7.widget.RecyclerView
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.databinding.DataBindingUtil
+import androidx.paging.PagedListAdapter
+import androidx.recyclerview.widget.RecyclerView
 import com.aamernabi.moments.R
 import com.aamernabi.moments.databinding.PhotoItemBinding
 import com.aamernabi.moments.datasource.remote.photos.Photo
@@ -33,7 +33,9 @@ class PhotoAdapter(
         })
     }
 
-    class ViewHolder(private val bindings: PhotoItemBinding) : RecyclerView.ViewHolder(bindings.root) {
+    class ViewHolder(
+        private val bindings: PhotoItemBinding
+    ) : RecyclerView.ViewHolder(bindings.root) {
         fun bind(item: Photo, clickListener: View.OnClickListener) {
             bindings.apply {
                 photo = item

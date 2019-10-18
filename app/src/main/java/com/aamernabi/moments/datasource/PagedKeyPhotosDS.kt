@@ -1,6 +1,6 @@
 package com.aamernabi.moments.datasource
 
-import android.arch.paging.PageKeyedDataSource
+import androidx.paging.PageKeyedDataSource
 import com.aamernabi.moments.datasource.remote.NetworkState
 import com.aamernabi.moments.datasource.remote.photos.Photo
 import com.aamernabi.moments.datasource.remote.photos.PhotosService
@@ -30,7 +30,7 @@ class PagedKeyPhotosDS(
         state = NetworkState.Loading()
 
         job = CoroutineScope(Dispatchers.IO).launch {
-            val photos = service.getPhotos(page ?: 1)
+            val photos = service.getPhotos(page)
             state = NetworkState.Success(null)
             callback.onResult(photos, page + 1)
         }

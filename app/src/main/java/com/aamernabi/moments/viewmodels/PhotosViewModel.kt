@@ -1,9 +1,9 @@
 package com.aamernabi.moments.viewmodels
 
-import android.arch.lifecycle.LiveData
-import android.arch.lifecycle.ViewModel
-import android.arch.paging.LivePagedListBuilder
-import android.arch.paging.PagedList
+import androidx.lifecycle.LiveData
+import androidx.lifecycle.ViewModel
+import androidx.paging.LivePagedListBuilder
+import androidx.paging.PagedList
 import com.aamernabi.moments.datasource.PagedKeyPhotosDSFactory
 import com.aamernabi.moments.datasource.remote.NetworkState
 import com.aamernabi.moments.datasource.remote.photos.Photo
