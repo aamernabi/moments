@@ -44,6 +44,7 @@ class FullScreenAdapter : PagerAdapter() {
 
         Glide.with(view)
             .load(selectedPhoto.urls.regular)
+            .error(R.drawable.ic_image_placeholder)
             .listener(object: RequestListener<Drawable> {
                 override fun onLoadFailed(e: GlideException?, model: Any?, target: Target<Drawable>?, isFirstResource: Boolean): Boolean {
                     view.progress_bar.visibility = View.GONE
