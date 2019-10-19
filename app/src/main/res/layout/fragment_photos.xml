@@ -14,13 +14,16 @@
         app:layoutManager="androidx.recyclerview.widget.GridLayoutManager"
         app:spanCount="3" />
 
-    <ProgressBar
+    <com.airbnb.lottie.LottieAnimationView
         android:id="@+id/progress_bar"
         android:layout_width="@dimen/progress_bar"
         android:layout_height="@dimen/progress_bar"
         android:layout_gravity="center"
         android:layout_marginBottom="?attr/actionBarSize"
-        android:visibility="gone" />
+        android:visibility="gone"
+        app:lottie_rawRes="@raw/progress"
+        app:lottie_loop="true"
+        app:lottie_autoPlay="true"/>
 
     <androidx.appcompat.widget.AppCompatTextView
         android:id="@+id/tv_no_internet"
