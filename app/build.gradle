@@ -74,6 +74,10 @@ dependencies {
     implementation "com.google.firebase:firebase-core:$versions.firebase"
     implementation "com.crashlytics.sdk.android:crashlytics:$versions.crashlytics"
 
+    api "com.google.dagger:dagger-android:$versions.dagger"
+    api "com.google.dagger:dagger-android-support:$versions.dagger"
+    kapt "com.google.dagger:dagger-android-processor:$versions.dagger"
+
     testImplementation "junit:junit:$versions.junit"
     androidTestImplementation "androidx.test.ext:junit:$versions.ext_junit"
     androidTestImplementation "androidx.test.espresso:espresso-core:$versions.espresso"
