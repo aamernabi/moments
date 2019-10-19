@@ -11,6 +11,8 @@ class MainActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
         setSupportActionBar(toolbar)
+
+        toolbar.setBackgroundResource(R.drawable.bg_app_bar)
     }
 
     fun hideToolbar() {
