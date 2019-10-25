@@ -14,4 +14,61 @@
     <style name="AppTheme.AppBarOverlay" parent="ThemeOverlay.AppCompat.Dark.ActionBar"/>
     <style name="AppTheme.PopupOverlay" parent="ThemeOverlay.AppCompat.Light"/>
 
+    <style name="AppTheme.Text.ExtraSmall" parent="TextAppearance.Compat.Notification.Time">
+        <item name="android:fontFamily">@font/open_sans_regular</item>
+    </style>
+    <style name="AppTheme.Text.Small" parent="TextAppearance.AppCompat.Small">
+        <item name="android:fontFamily">@font/open_sans_regular</item>
+    </style>
+    <style name="AppTheme.Text.Body1" parent="TextAppearance.AppCompat.Body1">
+        <item name="android:fontFamily">@font/open_sans_regular</item>
+    </style>
+    <style name="AppTheme.Text.Body2" parent="TextAppearance.AppCompat.Body2">
+        <item name="android:fontFamily">@font/open_sans_regular</item>
+    </style>
+    <style name="AppTheme.Text.Medium" parent="TextAppearance.AppCompat.Medium">
+        <item name="android:fontFamily">@font/open_sans_regular</item>
+    </style>
+    <style name="AppTheme.Text.Large" parent="TextAppearance.AppCompat.Large">
+        <item name="android:fontFamily">@font/open_sans_regular</item>
+    </style>
+
+    <style name="AppTheme.Text.Light.ExtraSmall" parent="TextAppearance.Compat.Notification.Time">
+        <item name="android:fontFamily">@font/open_sans_light</item>
+    </style>
+    <style name="AppTheme.Text.Light.Small" parent="TextAppearance.AppCompat.Small">
+        <item name="android:fontFamily">@font/open_sans_light</item>
+    </style>
+    <style name="AppTheme.Text.Light.Body1" parent="TextAppearance.AppCompat.Body1">
+        <item name="android:fontFamily">@font/open_sans_light</item>
+    </style>
+    <style name="AppTheme.Text.Light.Body2" parent="TextAppearance.AppCompat.Body2">
+        <item name="android:fontFamily">@font/open_sans_light</item>
+    </style>
+    <style name="AppTheme.Text.Light.Medium" parent="TextAppearance.AppCompat.Medium">
+        <item name="android:fontFamily">@font/open_sans_light</item>
+    </style>
+    <style name="AppTheme.Text.Light.Large" parent="TextAppearance.AppCompat.Large">
+        <item name="android:fontFamily">@font/open_sans_light</item>
+    </style>
+
+    <style name="AppTheme.Text.SemiBold.ExtraSmall" parent="TextAppearance.Compat.Notification.Time">
+        <item name="android:fontFamily">@font/open_sans_semi_bold</item>
+    </style>
+    <style name="AppTheme.Text.SemiBold.Small" parent="TextAppearance.AppCompat.Small">
+        <item name="android:fontFamily">@font/open_sans_semi_bold</item>
+    </style>
+    <style name="AppTheme.Text.SemiBold.Body1" parent="TextAppearance.AppCompat.Body1">
+        <item name="android:fontFamily">@font/open_sans_semi_bold</item>
+    </style>
+    <style name="AppTheme.Text.SemiBold.Body2" parent="TextAppearance.AppCompat.Body2">
+        <item name="android:fontFamily">@font/open_sans_semi_bold</item>
+    </style>
+    <style name="AppTheme.Text.SemiBold.Medium" parent="TextAppearance.AppCompat.Medium">
+        <item name="android:fontFamily">@font/open_sans_semi_bold</item>
+    </style>
+    <style name="AppTheme.Text.SemiBold.Large" parent="TextAppearance.AppCompat.Large">
+        <item name="android:fontFamily">@font/open_sans_semi_bold</item>
+    </style>
+
 </resources>

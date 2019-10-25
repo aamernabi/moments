@@ -1,6 +1,6 @@
 package com.aamernabi.moments.views.adapter
 
-import android.support.v7.util.DiffUtil
+import androidx.recyclerview.widget.DiffUtil
 import com.aamernabi.moments.datasource.remote.photos.Photo
 
 class PhotoDiffCallback : DiffUtil.ItemCallback<Photo>() {

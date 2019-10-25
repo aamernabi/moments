@@ -1,17 +1,18 @@
 package com.aamernabi.moments.views.fragment
 
 
-import android.arch.lifecycle.Observer
-import android.arch.lifecycle.ViewModelProviders
 import android.os.Bundle
-import android.support.v4.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.fragment.app.Fragment
+import androidx.lifecycle.Observer
+import androidx.lifecycle.ViewModelProviders
 import androidx.navigation.Navigation
-
 import com.aamernabi.moments.R
+import com.aamernabi.moments.utils.Errors
 import com.aamernabi.moments.utils.OnItemClickListener
+import com.aamernabi.moments.utils.State
 import com.aamernabi.moments.viewmodels.PhotosViewModel
 import com.aamernabi.moments.views.adapter.PhotoAdapter
 import kotlinx.android.synthetic.main.fragment_photos.*
@@ -35,13 +36,25 @@ class PhotosFragment : Fragment(), OnItemClickListener {
         val adapter = PhotoAdapter(this)
         recycler_view.adapter = adapter
 
-        attachObservers(adapter)
+        attachPhotosObservers(adapter)
+        attachStateObserver()
     }
 
-    private fun attachObservers(adapter: PhotoAdapter) {
+    private fun attachPhotosObservers(adapter: PhotoAdapter) {
         viewModel?.photos?.observe(this, Observer {
             it ?: return@Observer
             adapter.submitList(it)
+        })
+    }
+
+    private fun attachStateObserver() {
+        val activity = activity ?: return
+        viewModel?.photosState?.observe(activity, Observer { state ->
+            when (state) {
+                is State.Loading -> showProgress()
+                is State.Success -> onSuccess()
+                is State.Error -> onError(state.message, state.errorCode)
+            }
         })
     }
 
@@ -50,4 +63,29 @@ class PhotosFragment : Fragment(), OnItemClickListener {
         val navController = Navigation.findNavController(activity ?: return, R.id.nav_host_fragment)
         navController.navigate(R.id.fullScreenFragment)
     }
+
+
+    private fun onSuccess() {
+        progress_bar.visibility = View.GONE
+        tv_no_internet.visibility = View.GONE
+        recycler_view.visibility = View.VISIBLE
+    }
+
+    private fun showProgress() {
+        recycler_view.visibility = View.GONE
+        tv_no_internet.visibility = View.GONE
+        progress_bar.visibility = View.VISIBLE
+    }
+
+    private fun onError(message: String?, errorCode: Int?) {
+        progress_bar.visibility = View.GONE
+
+
+        if (errorCode != Errors.NO_DATA) {
+            recycler_view.visibility = View.GONE
+            tv_no_internet.visibility = View.VISIBLE
+            tv_no_internet.text = if (message.isNullOrEmpty()) tv_no_internet.text else message
+        }
+    }
+
 }
