@@ -12,7 +12,9 @@ import com.aamernabi.moments.utils.State
 import kotlinx.coroutines.Job
 import javax.inject.Inject
 
-class PhotosViewModel @Inject constructor() : ViewModel() {
+class PhotosViewModel @Inject constructor(
+    photosService: PhotosService
+) : ViewModel() {
 
     private val _photosState = MutableLiveData<State<Nothing>>()
     val photosState: LiveData<State<Nothing>> get() = _photosState
@@ -25,7 +27,7 @@ class PhotosViewModel @Inject constructor() : ViewModel() {
     }
 
     val photos: LiveData<PagedList<Photo>> = LivePagedListBuilder<Int, Photo>(
-        PagedKeyPhotosDSFactory(job, PhotosService.instance, _photosState),
+        PagedKeyPhotosDSFactory(job, photosService, _photosState),
         20
     ).build()
 

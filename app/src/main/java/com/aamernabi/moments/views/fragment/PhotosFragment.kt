@@ -45,7 +45,7 @@ class PhotosFragment : Fragment(), OnItemClickListener {
         val adapter = PhotoAdapter(this)
         recycler_view.adapter = adapter
 
-        activity?.let {activity ->
+        activity?.let { activity ->
             viewModel = ViewModelProviders.of(activity, viewModelFactory).get(PhotosViewModel::class.java)
         }
 
