@@ -26,7 +26,7 @@ class FullScreenFragment : Fragment() {
 
     override fun onAttach(context: Context) {
         super.onAttach(context)
-        (activity as? MainActivity?)?.registrationComponent?.inject(this)
+        (activity as? MainActivity?)?.photosComponent?.inject(this)
     }
 
     override fun onCreateView(

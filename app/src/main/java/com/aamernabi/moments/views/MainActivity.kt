@@ -12,11 +12,11 @@ import kotlinx.android.synthetic.main.activity_main.*
 
 class MainActivity : AppCompatActivity() {
 
-    lateinit var registrationComponent: PhotosComponent
+    lateinit var photosComponent: PhotosComponent
 
     override fun onCreate(savedInstanceState: Bundle?) {
-        registrationComponent = (application as App).appComponent.photosComponent().create()
-        registrationComponent.inject(this)
+        photosComponent = (application as App).appComponent.photosComponent().create()
+        photosComponent.inject(this)
 
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
