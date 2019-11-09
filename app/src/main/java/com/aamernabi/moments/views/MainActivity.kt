@@ -5,12 +5,19 @@ import android.view.Menu
 import android.view.MenuInflater
 import android.view.MenuItem
 import androidx.appcompat.app.AppCompatActivity
+import com.aamernabi.moments.App
 import com.aamernabi.moments.R
+import com.aamernabi.moments.di.PhotosComponent
 import kotlinx.android.synthetic.main.activity_main.*
 
 class MainActivity : AppCompatActivity() {
 
+    lateinit var registrationComponent: PhotosComponent
+
     override fun onCreate(savedInstanceState: Bundle?) {
+        registrationComponent = (application as App).appComponent.photosComponent().create()
+        registrationComponent.inject(this)
+
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
         setSupportActionBar(toolbar)

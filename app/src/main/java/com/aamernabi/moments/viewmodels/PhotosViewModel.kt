@@ -10,8 +10,9 @@ import com.aamernabi.moments.datasource.remote.photos.Photo
 import com.aamernabi.moments.datasource.remote.photos.PhotosService
 import com.aamernabi.moments.utils.State
 import kotlinx.coroutines.Job
+import javax.inject.Inject
 
-class PhotosViewModel : ViewModel() {
+class PhotosViewModel @Inject constructor() : ViewModel() {
 
     private val _photosState = MutableLiveData<State<Nothing>>()
     val photosState: LiveData<State<Nothing>> get() = _photosState
