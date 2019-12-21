@@ -71,4 +71,15 @@
         <item name="android:fontFamily">@font/open_sans_semi_bold</item>
     </style>
 
+
+    <!--context theme wrapper example-->
+    <style name="Theme.Demo" parent="AppTheme">
+        <item name="materialAlertDialogTheme">@style/ThemeOverlay.Demo.Dialog</item>
+    </style>
+
+    <style name="ThemeOverlay.Demo.Dialog" parent="ThemeOverlay.MaterialComponents.MaterialAlertDialog">
+        <item name="colorPrimary">@color/colorAccent</item>
+    </style>
+
+
 </resources>

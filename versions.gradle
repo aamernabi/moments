@@ -11,7 +11,7 @@ versions.kotlin = '1.3.50'
 versions.spotbugs_plugin = '2.0.0'
 
 versions.appcompat = '1.1.0'
-versions.constraint_layout = '1.1.3'
+versions.constraint_layout = '2.0.0-beta3'
 versions.coroutines = '1.0.1'
 versions.crashlytics = '2.10.1'
 versions.dagger = '2.25.2'
