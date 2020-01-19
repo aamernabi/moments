@@ -42,14 +42,19 @@ class AppModule {
 
     @Provides
     @Singleton
-    fun provideUnSplashApi(okHttpClient: OkHttpClient): UnsplashApi {
+    fun provideRetrofit(okHttpClient: OkHttpClient): Retrofit {
         return Retrofit.Builder()
             .baseUrl(Urls.UNSPLASH_BASE_URL)
             .addConverterFactory(MoshiConverterFactory.create())
             .addCallAdapterFactory(CoroutineCallAdapterFactory())
             .client(okHttpClient)
             .build()
-            .create(UnsplashApi::class.java)
+    }
+
+    @Provides
+    @Singleton
+    fun provideUnSplashApi(retrofit: Retrofit   ): UnsplashApi {
+        return retrofit.create(UnsplashApi::class.java)
     }
 
 }
