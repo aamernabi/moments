@@ -1,26 +1,24 @@
 package com.aamernabi.moments.views
 
-import android.content.DialogInterface
 import android.os.Bundle
 import android.view.Menu
 import android.view.MenuInflater
 import android.view.MenuItem
 import androidx.appcompat.app.AppCompatActivity
-import com.aamernabi.moments.App
 import com.aamernabi.moments.R
-import com.aamernabi.moments.di.PhotosComponent
 import com.aamernabi.moments.showMaterialDialog
-import com.google.android.material.dialog.MaterialAlertDialogBuilder
+import dagger.android.AndroidInjector
+import dagger.android.DispatchingAndroidInjector
+import dagger.android.HasAndroidInjector
 import kotlinx.android.synthetic.main.activity_main.*
+import javax.inject.Inject
 
-class MainActivity : AppCompatActivity() {
+class MainActivity : AppCompatActivity(), HasAndroidInjector {
 
-    lateinit var photosComponent: PhotosComponent
+    @Inject
+    lateinit var dispatchingAndroidInjector: DispatchingAndroidInjector<Any>
 
     override fun onCreate(savedInstanceState: Bundle?) {
-        photosComponent = (application as App).appComponent.photosComponent().create()
-        photosComponent.inject(this)
-
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
         setSupportActionBar(toolbar)
@@ -59,6 +57,8 @@ class MainActivity : AppCompatActivity() {
             else -> super.onOptionsItemSelected(item)
         }
     }
+
+    override fun androidInjector(): AndroidInjector<Any> = dispatchingAndroidInjector
 
 
 }
