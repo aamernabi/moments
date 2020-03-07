@@ -1,10 +1,10 @@
-package com.aamernabi.moments.utils
+package com.aamernabi.moments.di
 
 import com.bumptech.glide.annotation.GlideModule
 import com.bumptech.glide.module.AppGlideModule
 
 /**
- * Sairah
+ * Moments
  * Created by EResolute on 8/11/2018.
  */
 @GlideModule

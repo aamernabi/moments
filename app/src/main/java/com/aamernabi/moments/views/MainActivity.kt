@@ -1,16 +1,26 @@
 package com.aamernabi.moments.views
 
+import android.content.DialogInterface
 import android.os.Bundle
 import android.view.Menu
 import android.view.MenuInflater
 import android.view.MenuItem
 import androidx.appcompat.app.AppCompatActivity
+import com.aamernabi.moments.App
 import com.aamernabi.moments.R
+import com.aamernabi.moments.di.PhotosComponent
+import com.aamernabi.moments.showMaterialDialog
+import com.google.android.material.dialog.MaterialAlertDialogBuilder
 import kotlinx.android.synthetic.main.activity_main.*
 
 class MainActivity : AppCompatActivity() {
 
+    lateinit var photosComponent: PhotosComponent
+
     override fun onCreate(savedInstanceState: Bundle?) {
+        photosComponent = (application as App).appComponent.photosComponent().create()
+        photosComponent.inject(this)
+
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
         setSupportActionBar(toolbar)
@@ -38,6 +48,14 @@ class MainActivity : AppCompatActivity() {
                 showHelp()
                 true
             }*/
+            R.id.action_light_theme -> {
+                showMaterialDialog(
+                    this,
+                    "Verify your identity",
+                    "Login using fingerprint authentication."
+                )
+                true
+            }
             else -> super.onOptionsItemSelected(item)
         }
     }

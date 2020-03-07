@@ -1,0 +1,26 @@
+<LinearLayout android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:paddingTop="8dp"
+    android:paddingBottom="8dp"
+    android:paddingEnd="16dp"
+    android:paddingStart="16dp">
+
+    <androidx.appcompat.widget.AppCompatImageView
+        android:id="@+id/fingerprintAuthIcon"
+        android:layout_width="40dp"
+        android:layout_height="40dp"
+        app:srcCompat="@drawable/ic_fingerprint"
+        app:tint="?attr/colorPrimary" />
+
+    <TextView
+        android:id="@+id/fingerprintAuthStateText"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center_vertical"
+        android:layout_marginStart="8dp"
+        android:text="Touch the fingerprint sensor"
+        android:textColor="?attr/colorOnSurface" />
+
+</LinearLayout>
