@@ -9,13 +9,13 @@ import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
 import androidx.navigation.Navigation
 import com.aamernabi.moments.R
+import com.aamernabi.moments.databinding.FragmentPhotosBinding
 import com.aamernabi.moments.di.Injectable
 import com.aamernabi.moments.utils.Errors
 import com.aamernabi.moments.utils.OnItemClickListener
 import com.aamernabi.moments.utils.State
 import com.aamernabi.moments.viewmodels.PhotosViewModel
 import com.aamernabi.moments.views.adapter.PhotoAdapter
-import kotlinx.android.synthetic.main.fragment_photos.*
 import javax.inject.Inject
 
 class PhotosFragment : Fragment(), OnItemClickListener, Injectable {
@@ -23,6 +23,8 @@ class PhotosFragment : Fragment(), OnItemClickListener, Injectable {
     @Inject
     lateinit var viewModelFactory: ViewModelProvider.Factory
     private lateinit var viewModel: PhotosViewModel
+
+    private var binding: FragmentPhotosBinding? = null
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -34,15 +36,25 @@ class PhotosFragment : Fragment(), OnItemClickListener, Injectable {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
+        val binding = FragmentPhotosBinding.bind(view)
+        this.binding = binding
+
         val adapter = PhotoAdapter(this)
-        recycler_view.adapter = adapter
+        binding.recyclerView.adapter = adapter
+
 
         activity?.let { activity ->
-            viewModel = ViewModelProvider(activity, viewModelFactory).get(PhotosViewModel::class.java)
+            viewModel =
+                ViewModelProvider(activity, viewModelFactory).get(PhotosViewModel::class.java)
         }
 
         attachPhotosObservers(adapter)
         attachStateObserver()
+    }
+
+    override fun onDestroyView() {
+        binding = null
+        super.onDestroyView()
     }
 
     private fun attachPhotosObservers(adapter: PhotoAdapter) {
@@ -71,25 +83,26 @@ class PhotosFragment : Fragment(), OnItemClickListener, Injectable {
 
 
     private fun onSuccess() {
-        progress_bar.visibility = View.GONE
-        tv_no_internet.visibility = View.GONE
-        recycler_view.visibility = View.VISIBLE
+        binding?.progressBar?.visibility = View.GONE
+        binding?.tvNoInternet?.visibility = View.GONE
+        binding?.recyclerView?.visibility = View.VISIBLE
     }
 
     private fun showProgress() {
-        recycler_view.visibility = View.GONE
-        tv_no_internet.visibility = View.GONE
-        progress_bar.visibility = View.VISIBLE
+        binding?.recyclerView?.visibility = View.GONE
+        binding?.tvNoInternet?.visibility = View.GONE
+        binding?.progressBar?.visibility = View.VISIBLE
     }
 
     private fun onError(message: String?, errorCode: Int?) {
-        progress_bar.visibility = View.GONE
+        binding?.progressBar?.visibility = View.GONE
 
 
         if (errorCode != Errors.NO_DATA) {
-            recycler_view.visibility = View.GONE
-            tv_no_internet.visibility = View.VISIBLE
-            tv_no_internet.text = if (message.isNullOrEmpty()) tv_no_internet.text else message
+            binding?.recyclerView?.visibility = View.GONE
+            binding?.tvNoInternet?.visibility = View.VISIBLE
+            binding?.tvNoInternet?.text =
+                if (message.isNullOrEmpty()) binding?.tvNoInternet?.text else message
         }
     }
 
