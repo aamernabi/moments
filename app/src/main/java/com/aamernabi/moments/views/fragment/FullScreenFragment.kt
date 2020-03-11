@@ -14,6 +14,7 @@ import com.aamernabi.moments.di.Injectable
 import com.aamernabi.moments.viewmodels.PhotosViewModel
 import com.aamernabi.moments.views.MainActivity
 import com.aamernabi.moments.views.adapter.FullScreenAdapter
+import com.aamernabi.moments.views.bindings.viewBinding
 import javax.inject.Inject
 
 class FullScreenFragment : Fragment(), Injectable {
@@ -22,7 +23,7 @@ class FullScreenFragment : Fragment(), Injectable {
     lateinit var viewModelFactory: ViewModelProvider.Factory
     private lateinit var viewModel: PhotosViewModel
 
-    private var binding: FragmentFullScreenBinding? = null
+    private val binding by viewBinding(FragmentFullScreenBinding::bind)
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -34,22 +35,14 @@ class FullScreenFragment : Fragment(), Injectable {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
-        val binding = FragmentFullScreenBinding.bind(view)
-        this.binding = binding
-
         viewModel = ViewModelProvider(activity ?: error("activity null"), viewModelFactory)
             .get(PhotosViewModel::class.java)
 
         val photos = viewModel.photos.value ?: return
-        binding?.viewPager?.adapter = FullScreenAdapter().apply { addAll(photos) }
-        binding?.viewPager?.currentItem = viewModel.currentIndex
+        binding.viewPager.adapter = FullScreenAdapter().apply { addAll(photos) }
+        binding.viewPager.currentItem = viewModel.currentIndex
 
         attachPhotosObserver()
-    }
-
-    override fun onDestroyView() {
-        binding = null
-        super.onDestroyView()
     }
 
     override fun onResume() {
@@ -60,7 +53,7 @@ class FullScreenFragment : Fragment(), Injectable {
 
     private fun attachPhotosObserver() {
         viewModel.photos.observe(viewLifecycleOwner, Observer { photos ->
-            (binding?.viewPager?.adapter as FullScreenAdapter?)?.addAll(photos ?: return@Observer)
+            (binding.viewPager.adapter as FullScreenAdapter?)?.addAll(photos ?: return@Observer)
         })
     }
 }

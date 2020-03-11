@@ -16,6 +16,7 @@ import com.aamernabi.moments.utils.OnItemClickListener
 import com.aamernabi.moments.utils.State
 import com.aamernabi.moments.viewmodels.PhotosViewModel
 import com.aamernabi.moments.views.adapter.PhotoAdapter
+import com.aamernabi.moments.views.bindings.viewBinding
 import javax.inject.Inject
 
 class PhotosFragment : Fragment(), OnItemClickListener, Injectable {
@@ -24,7 +25,7 @@ class PhotosFragment : Fragment(), OnItemClickListener, Injectable {
     lateinit var viewModelFactory: ViewModelProvider.Factory
     private lateinit var viewModel: PhotosViewModel
 
-    private var binding: FragmentPhotosBinding? = null
+    private val binding by viewBinding(FragmentPhotosBinding::bind)
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -35,9 +36,6 @@ class PhotosFragment : Fragment(), OnItemClickListener, Injectable {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-
-        val binding = FragmentPhotosBinding.bind(view)
-        this.binding = binding
 
         val adapter = PhotoAdapter(this)
         binding.recyclerView.adapter = adapter
@@ -50,11 +48,6 @@ class PhotosFragment : Fragment(), OnItemClickListener, Injectable {
 
         attachPhotosObservers(adapter)
         attachStateObserver()
-    }
-
-    override fun onDestroyView() {
-        binding = null
-        super.onDestroyView()
     }
 
     private fun attachPhotosObservers(adapter: PhotoAdapter) {
@@ -83,26 +76,26 @@ class PhotosFragment : Fragment(), OnItemClickListener, Injectable {
 
 
     private fun onSuccess() {
-        binding?.progressBar?.visibility = View.GONE
-        binding?.tvNoInternet?.visibility = View.GONE
-        binding?.recyclerView?.visibility = View.VISIBLE
+        binding.progressBar.visibility = View.GONE
+        binding.tvNoInternet.visibility = View.GONE
+        binding.recyclerView.visibility = View.VISIBLE
     }
 
     private fun showProgress() {
-        binding?.recyclerView?.visibility = View.GONE
-        binding?.tvNoInternet?.visibility = View.GONE
-        binding?.progressBar?.visibility = View.VISIBLE
+        binding.recyclerView.visibility = View.GONE
+        binding.tvNoInternet.visibility = View.GONE
+        binding.progressBar.visibility = View.VISIBLE
     }
 
     private fun onError(message: String?, errorCode: Int?) {
-        binding?.progressBar?.visibility = View.GONE
+        binding.progressBar.visibility = View.GONE
 
 
         if (errorCode != Errors.NO_DATA) {
-            binding?.recyclerView?.visibility = View.GONE
-            binding?.tvNoInternet?.visibility = View.VISIBLE
-            binding?.tvNoInternet?.text =
-                if (message.isNullOrEmpty()) binding?.tvNoInternet?.text else message
+            binding.recyclerView.visibility = View.GONE
+            binding.tvNoInternet.visibility = View.VISIBLE
+            binding.tvNoInternet.text =
+                if (message.isNullOrEmpty()) binding.tvNoInternet.text else message
         }
     }
 

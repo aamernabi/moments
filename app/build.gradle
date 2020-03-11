@@ -32,6 +32,9 @@ android {
         sourceCompatibility JavaVersion.VERSION_1_8
         targetCompatibility JavaVersion.VERSION_1_8
     }
+    kotlinOptions {
+        jvmTarget = JavaVersion.VERSION_1_8.toString()
+    }
     androidExtensions {
         experimental = true
     }
@@ -63,6 +66,10 @@ dependencies {
     implementation "androidx.lifecycle:lifecycle-viewmodel:$versions.lifecycle"
     implementation "androidx.lifecycle:lifecycle-livedata:$versions.lifecycle"
     implementation "androidx.lifecycle:lifecycle-common-java8:$versions.lifecycle"
+
+    implementation "androidx.lifecycle:lifecycle-runtime:$versions.lifecycle"
+    implementation "androidx.lifecycle:lifecycle-viewmodel-ktx:$versions.lifecycle"
+    implementation "androidx.lifecycle:lifecycle-livedata-ktx:$versions.lifecycle"
 
     implementation "androidx.navigation:navigation-fragment:$versions.navigation"
     implementation "androidx.navigation:navigation-ui:$versions.navigation"

@@ -8,6 +8,7 @@ import androidx.appcompat.app.AppCompatActivity
 import com.aamernabi.moments.R
 import com.aamernabi.moments.databinding.ActivityMainBinding
 import com.aamernabi.moments.showMaterialDialog
+import com.aamernabi.moments.views.bindings.viewBinding
 import dagger.android.AndroidInjector
 import dagger.android.DispatchingAndroidInjector
 import dagger.android.HasAndroidInjector
@@ -18,11 +19,10 @@ class MainActivity : AppCompatActivity(), HasAndroidInjector {
     @Inject
     lateinit var dispatchingAndroidInjector: DispatchingAndroidInjector<Any>
 
-    private lateinit var bindings: ActivityMainBinding
+    private val bindings by viewBinding(ActivityMainBinding::inflate)
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        bindings = ActivityMainBinding.inflate(layoutInflater)
         setContentView(bindings.root)
         setSupportActionBar(bindings.toolbar)
 
