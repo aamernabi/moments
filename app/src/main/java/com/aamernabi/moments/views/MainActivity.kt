@@ -7,7 +7,7 @@ import android.view.MenuItem
 import androidx.appcompat.app.AppCompatActivity
 import com.aamernabi.moments.R
 import com.aamernabi.moments.databinding.ActivityMainBinding
-import com.aamernabi.moments.showMaterialDialog
+import com.aamernabi.moments.example.showMaterialDialog
 import com.aamernabi.moments.views.bindings.viewBinding
 import dagger.android.AndroidInjector
 import dagger.android.DispatchingAndroidInjector
