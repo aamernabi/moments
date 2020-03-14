@@ -1,6 +1,7 @@
 package com.aamernabi.moments.di
 
 import android.content.Context
+import com.aamernabi.moments.App
 import com.bumptech.glide.Glide
 import com.bumptech.glide.Registry
 import com.bumptech.glide.annotation.Excludes
@@ -18,14 +19,16 @@ import javax.inject.Named
  * Moments
  * Created by Aamer on 8/11/2018.
  */
-//@Excludes(OkHttpLibraryGlideModule::class)
+@Excludes(OkHttpLibraryGlideModule::class)
 @GlideModule
 class GlideImageModule : AppGlideModule() {
-    /*@Inject @Named("GlideModule")
+    @Inject @Named("GlideModule")
     lateinit var okHttpClient: OkHttpClient
 
     override fun registerComponents(context: Context, glide: Glide, registry: Registry) {
+        (context.applicationContext as App).androidInjector().inject(this)
+
         val factory = OkHttpUrlLoader.Factory(okHttpClient)
         registry.replace(GlideUrl::class.java, InputStream::class.java, factory)
-    }*/
+    }
 }
