@@ -15,6 +15,7 @@ import okhttp3.logging.HttpLoggingInterceptor
 import retrofit2.Retrofit
 import retrofit2.converter.moshi.MoshiConverterFactory
 import java.util.concurrent.TimeUnit
+import javax.inject.Named
 import javax.inject.Singleton
 
 @Module(includes = [ViewModelsModule::class])
@@ -41,6 +42,18 @@ class AppModule {
     }
 
     @Provides
+    @Named("GlideModule")
+    @Singleton
+    fun provideGlideHttpClient(): OkHttpClient {
+        val builder = OkHttpClient.Builder()
+        builder.readTimeout(READ_TIMEOUT, TimeUnit.SECONDS)
+        builder.connectTimeout(CONNECTION_TIMEOUT, TimeUnit.SECONDS)
+        builder.writeTimeout(WRITE_TIMEOUT, TimeUnit.SECONDS)
+
+        return builder.build()
+    }
+
+    @Provides
     @Singleton
     fun provideRetrofit(okHttpClient: OkHttpClient): Retrofit {
         return Retrofit.Builder()
@@ -53,7 +66,7 @@ class AppModule {
 
     @Provides
     @Singleton
-    fun provideUnSplashApi(retrofit: Retrofit   ): UnsplashApi {
+    fun provideUnSplashApi(retrofit: Retrofit): UnsplashApi {
         return retrofit.create(UnsplashApi::class.java)
     }
 
