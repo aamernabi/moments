@@ -1,4 +1,4 @@
-package com.aamernabi.moments
+package com.aamernabi.moments.example
 
 import android.annotation.SuppressLint
 import android.content.Context
@@ -6,6 +6,7 @@ import android.util.TypedValue
 import android.view.LayoutInflater
 import androidx.annotation.AttrRes
 import androidx.appcompat.view.ContextThemeWrapper
+import com.aamernabi.moments.R
 import com.google.android.material.dialog.MaterialAlertDialogBuilder
 
 fun showMaterialDialog(
@@ -16,14 +17,18 @@ fun showMaterialDialog(
     /*val dialogTheme = context.resolveThemeAttr(R.attr.materialAlertDialogTheme)
     val dialogThemeContext = ContextThemeWrapper(context, dialogTheme)*/
 
-    val dialogThemeContext = ContextThemeWrapper(context, R.style.ThemeOverlay_Demo_Dialog)
+    val dialogThemeContext = ContextThemeWrapper(context,
+        R.style.ThemeOverlay_Demo_Dialog
+    )
 
     @SuppressLint("InflateParams")
     val customView =
         LayoutInflater.from(dialogThemeContext /*don't pass context icon will user color primary*/)
             .inflate(R.layout.finger_print_auth, null)
 
-    MaterialAlertDialogBuilder(context, R.style.ThemeOverlay_Demo_Dialog)
+    MaterialAlertDialogBuilder(context,
+        R.style.ThemeOverlay_Demo_Dialog
+    )
         .setTitle(title)
         .setMessage(message)
         .setNegativeButton("Cancel") { p0, _ -> p0.dismiss() }

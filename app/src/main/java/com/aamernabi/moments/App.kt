@@ -1,13 +1,22 @@
 package com.aamernabi.moments
 
 import android.app.Application
-import com.aamernabi.moments.di.AppComponent
-import com.aamernabi.moments.di.DaggerAppComponent
+import com.aamernabi.moments.di.AppInjector
+import dagger.android.AndroidInjector
+import dagger.android.DispatchingAndroidInjector
+import dagger.android.HasAndroidInjector
+import javax.inject.Inject
 
-open class App : Application() {
+open class App : Application(), HasAndroidInjector {
 
-    val appComponent: AppComponent by lazy {
-        DaggerAppComponent.factory().create(applicationContext)
+    @Inject
+    lateinit var dispatchingAndroidInjector: DispatchingAndroidInjector<Any>
+
+    override fun onCreate() {
+        super.onCreate()
+        AppInjector.init(this)
     }
+
+    override fun androidInjector(): AndroidInjector<Any> = dispatchingAndroidInjector
 
 }

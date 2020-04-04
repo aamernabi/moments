@@ -15,7 +15,7 @@ import dagger.android.support.AndroidSupportInjection
 object AppInjector {
 
     fun init(app: App) {
-        DaggerAppComponent.factory().create(app)
+        DaggerAppComponent.builder().application(app).build().inject(app)
 
         app.registerActivityLifecycleCallbacks(object : Application.ActivityLifecycleCallbacks {
             override fun onActivityPaused(p0: Activity) {}
