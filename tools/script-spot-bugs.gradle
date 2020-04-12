@@ -2,7 +2,7 @@ apply plugin: 'com.github.spotbugs'
 
 dependencies {
     spotbugs configurations.spotbugsPlugins.dependencies
-    spotbugsPlugins 'com.h3xstream.findsecbugs:findsecbugs-plugin:1.8.0'
+    spotbugsPlugins 'com.h3xstream.findsecbugs:findsecbugs-plugin:1.10.1'
 }
 
 spotbugs {
