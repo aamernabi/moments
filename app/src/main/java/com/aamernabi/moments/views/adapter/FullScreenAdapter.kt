@@ -39,7 +39,7 @@ class FullScreenAdapter : PagerAdapter() {
             putString("photo_color", selectedPhoto.color)
             putString(FirebaseAnalytics.Param.CONTENT_TYPE, "image")
         }
-        analytics.logEvent(FirebaseAnalytics.Event.SELECT_CONTENT, bundle)
+        analytics.logEvent(FirebaseAnalytics.Event.SELECT_ITEM, bundle)
 
 
         Glide.with(view)
