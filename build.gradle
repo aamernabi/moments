@@ -38,5 +38,10 @@ subprojects {
             ktlint(versions.ktlint)
             licenseHeaderFile project.rootProject.file('scripts/copyright.kt')
         }
+        groovyGradle {
+            target '**/*.gradle'
+            greclipse().configFile(project.rootProject.file('scripts/greclipse.properties'))
+            paddedCell() // to avoid cyclic ambiguities
+        }
     }
 }
