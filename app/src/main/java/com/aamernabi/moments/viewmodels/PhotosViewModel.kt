@@ -1,3 +1,19 @@
+/*
+ * Copyright 2020 aamernabi
+ *
+ * Licensed under the Apache License, Version 2.0 (the "License");
+ * you may not use this file except in compliance with the License.
+ * You may obtain a copy of the License at
+ *
+ *     http://www.apache.org/licenses/LICENSE-2.0
+ *
+ * Unless required by applicable law or agreed to in writing, software
+ * distributed under the License is distributed on an "AS IS" BASIS,
+ * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ * See the License for the specific language governing permissions and
+ * limitations under the License.
+ */
+
 package com.aamernabi.moments.viewmodels
 
 import androidx.lifecycle.LiveData
@@ -9,8 +25,8 @@ import com.aamernabi.moments.datasource.PagedKeyPhotosDSFactory
 import com.aamernabi.moments.datasource.remote.photos.Photo
 import com.aamernabi.moments.datasource.remote.photos.PhotosService
 import com.aamernabi.moments.utils.State
-import kotlinx.coroutines.Job
 import javax.inject.Inject
+import kotlinx.coroutines.Job
 
 class PhotosViewModel @Inject constructor(
     photosService: PhotosService
@@ -35,5 +51,4 @@ class PhotosViewModel @Inject constructor(
         job?.cancel()
         super.onCleared()
     }
-
 }

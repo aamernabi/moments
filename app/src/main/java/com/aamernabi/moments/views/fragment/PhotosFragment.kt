@@ -1,3 +1,19 @@
+/*
+ * Copyright 2020 aamernabi
+ *
+ * Licensed under the Apache License, Version 2.0 (the "License");
+ * you may not use this file except in compliance with the License.
+ * You may obtain a copy of the License at
+ *
+ *     http://www.apache.org/licenses/LICENSE-2.0
+ *
+ * Unless required by applicable law or agreed to in writing, software
+ * distributed under the License is distributed on an "AS IS" BASIS,
+ * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ * See the License for the specific language governing permissions and
+ * limitations under the License.
+ */
+
 package com.aamernabi.moments.views.fragment
 
 import android.os.Bundle
@@ -28,7 +44,8 @@ class PhotosFragment : Fragment(), OnItemClickListener, Injectable {
     private val binding by viewBinding(FragmentPhotosBinding::bind)
 
     override fun onCreateView(
-        inflater: LayoutInflater, container: ViewGroup?,
+        inflater: LayoutInflater,
+        container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
         return inflater.inflate(R.layout.fragment_photos, container, false)
@@ -39,7 +56,6 @@ class PhotosFragment : Fragment(), OnItemClickListener, Injectable {
 
         val adapter = PhotoAdapter(this)
         binding.recyclerView.adapter = adapter
-
 
         activity?.let { activity ->
             viewModel =
@@ -74,7 +90,6 @@ class PhotosFragment : Fragment(), OnItemClickListener, Injectable {
         navController.navigate(R.id.fullScreenFragment)
     }
 
-
     private fun onSuccess() {
         binding.progressBar.visibility = View.GONE
         binding.tvNoInternet.visibility = View.GONE
@@ -90,7 +105,6 @@ class PhotosFragment : Fragment(), OnItemClickListener, Injectable {
     private fun onError(message: String?, errorCode: Int?) {
         binding.progressBar.visibility = View.GONE
 
-
         if (errorCode != Errors.NO_DATA) {
             binding.recyclerView.visibility = View.GONE
             binding.tvNoInternet.visibility = View.VISIBLE
@@ -98,5 +112,4 @@ class PhotosFragment : Fragment(), OnItemClickListener, Injectable {
                 if (message.isNullOrEmpty()) binding.tvNoInternet.text else message
         }
     }
-
 }

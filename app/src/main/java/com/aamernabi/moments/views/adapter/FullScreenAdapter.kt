@@ -1,3 +1,19 @@
+/*
+ * Copyright 2020 aamernabi
+ *
+ * Licensed under the Apache License, Version 2.0 (the "License");
+ * you may not use this file except in compliance with the License.
+ * You may obtain a copy of the License at
+ *
+ *     http://www.apache.org/licenses/LICENSE-2.0
+ *
+ * Unless required by applicable law or agreed to in writing, software
+ * distributed under the License is distributed on an "AS IS" BASIS,
+ * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ * See the License for the specific language governing permissions and
+ * limitations under the License.
+ */
+
 package com.aamernabi.moments.views.adapter
 
 import android.graphics.drawable.Drawable
@@ -41,13 +57,12 @@ class FullScreenAdapter : PagerAdapter() {
         }
         analytics.logEvent(FirebaseAnalytics.Event.SELECT_ITEM, bundle)
 
-
         Glide.with(view)
             .load(selectedPhoto.urls.regular)
-            .listener(object: RequestListener<Drawable> {
+            .listener(object : RequestListener<Drawable> {
                 override fun onLoadFailed(e: GlideException?, model: Any?, target: Target<Drawable>?, isFirstResource: Boolean): Boolean {
                     view.progress_bar.setImageResource(R.drawable.ic_image_placeholder)
-                    //view.progress_bar.visibility = View.GONE
+                    // view.progress_bar.visibility = View.GONE
                     return false
                 }
 
@@ -70,5 +85,4 @@ class FullScreenAdapter : PagerAdapter() {
         photos.addAll(list)
         notifyDataSetChanged()
     }
-
 }
