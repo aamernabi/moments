@@ -14,20 +14,29 @@ buildscript {
         classpath "org.jetbrains.kotlin:kotlin-gradle-plugin:$versions.kotlin"
         classpath "com.google.gms:google-services:$versions.google_services"
         classpath "io.fabric.tools:gradle:$versions.fabric"
-        classpath "gradle.plugin.com.github.spotbugs:spotbugs-gradle-plugin:$versions.spotbugs_plugin"
         // NOTE: Do not place your application dependencies here; they belong
         // in the individual module build.gradle files
     }
+}
+
+plugins {
+    id 'com.diffplug.gradle.spotless' version '3.28.0'
 }
 
 allprojects {
     repositories {
         google()
         jcenter()
-        
     }
 }
 
-task clean(type: Delete) {
-    delete rootProject.buildDir
+subprojects {
+    apply plugin: 'com.diffplug.gradle.spotless'
+    spotless {
+        kotlin {
+            target "**/*.kt"
+            ktlint(versions.ktlint)
+            licenseHeaderFile project.rootProject.file('scripts/copyright.kt')
+        }
+    }
 }
