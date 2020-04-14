@@ -15,7 +15,7 @@ jobs:
         with:
           java-version: 1.8
 
-      - uses: actions/cache@v1
+      - uses: actions/cache@v1.1.2
         timeout-minutes: 5
         with:
           path: ~/.gradle/caches
@@ -25,5 +25,8 @@ jobs:
 
       - name: Spotless Check
         run: ./gradlew spotlessCheck
+
+      - name: Build
+        run: ./gradlew build
 
 
