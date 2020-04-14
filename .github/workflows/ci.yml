@@ -16,6 +16,6 @@ jobs:
           java-version: 11
 
       - name: Spotless Check
-          run: ./gradlew spotlessCheck
+        run: ./gradlew spotlessCheck
 
 
