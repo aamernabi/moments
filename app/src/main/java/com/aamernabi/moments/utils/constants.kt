@@ -29,3 +29,5 @@ class Errors {
 object Urls {
     const val UNSPLASH_BASE_URL = "https://api.unsplash.com"
 }
+
+const val CONNECTION_ERROR = "Something went wrong"
