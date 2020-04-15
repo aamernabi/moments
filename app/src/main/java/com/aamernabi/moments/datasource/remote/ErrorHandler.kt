@@ -20,10 +20,10 @@ import com.aamernabi.moments.datasource.remote.photos.Error
 import com.aamernabi.moments.utils.CONNECTION_ERROR
 import com.aamernabi.moments.utils.State
 import com.aamernabi.moments.utils.fromJson
+import java.io.IOException
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.withContext
 import retrofit2.HttpException
-import java.io.IOException
 
 suspend inline fun <reified T> coroutineErrorHandler(t: Throwable): State<T> {
     return when (t) {
