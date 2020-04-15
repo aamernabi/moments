@@ -1,4 +1,4 @@
-Tell Git to ignore changes to APIKeys.cs on your local machine:
+Tell Git to ignore changes to gradle.properties on your local machine:
 
 ```git update-index --skip-worktree gradle.properties```
 
