@@ -13,6 +13,8 @@ android {
         versionCode 1
         versionName "0.0.1"
         testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
+
+        buildConfigField 'String', 'UNSPLASH_API_KEY', "\"${unsplash_api_key}\""
     }
     buildTypes {
         release {
@@ -22,10 +24,6 @@ android {
         debug {
             //applicationIdSuffix ".debug"
             debuggable true
-        }
-        staging {
-            initWith debug
-            //applicationIdSuffix ".debugStaging"
         }
     }
     compileOptions {

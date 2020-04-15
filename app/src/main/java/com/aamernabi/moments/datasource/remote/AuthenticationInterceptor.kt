@@ -16,7 +16,7 @@
 
 package com.aamernabi.moments.datasource.remote
 
-import com.aamernabi.moments.utils.UNSPLASH_API_KEY
+import com.aamernabi.moments.BuildConfig
 import okhttp3.Interceptor
 import okhttp3.Response
 
@@ -27,7 +27,7 @@ class AuthenticationInterceptor : Interceptor {
         val builder = request.newBuilder()
         builder.header(
             "Authorization",
-            "Client-ID $UNSPLASH_API_KEY"
+            "Client-ID ${BuildConfig.UNSPLASH_API_KEY}"
         )
         builder.header(
             "Accept-Version",
