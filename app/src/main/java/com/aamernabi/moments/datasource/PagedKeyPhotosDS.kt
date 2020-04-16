@@ -22,11 +22,11 @@ import com.aamernabi.moments.datasource.remote.coroutineErrorHandler
 import com.aamernabi.moments.datasource.remote.photos.Photo
 import com.aamernabi.moments.datasource.remote.photos.PhotosService
 import com.aamernabi.moments.utils.State
+import java.net.UnknownHostException
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.Job
 import kotlinx.coroutines.launch
-import java.net.UnknownHostException
 
 class PagedKeyPhotosDS(
     private var job: Job?,
@@ -41,7 +41,7 @@ class PagedKeyPhotosDS(
                 state.value = State.Success(null)
                 callback.onResult(photos, null, 2)
             } catch (e: Exception) {
-                when(e) {
+                when (e) {
                     is UnknownHostException -> state.value = State.Error(null)
                     else -> state.value = coroutineErrorHandler(e)
                 }
@@ -57,7 +57,7 @@ class PagedKeyPhotosDS(
                 val photos = service.getPhotos(page)
                 callback.onResult(photos, page + 1)
             } catch (e: Exception) {
-                when(e) {
+                when (e) {
                     is UnknownHostException -> state.value = State.Error(null)
                     else -> state.value = coroutineErrorHandler(e)
                 }

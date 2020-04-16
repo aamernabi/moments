@@ -25,8 +25,8 @@ import com.aamernabi.moments.datasource.PagedKeyPhotosDSFactory
 import com.aamernabi.moments.datasource.remote.photos.Photo
 import com.aamernabi.moments.datasource.remote.photos.PhotosService
 import com.aamernabi.moments.utils.State
-import kotlinx.coroutines.Job
 import javax.inject.Inject
+import kotlinx.coroutines.Job
 
 class PhotosViewModel @Inject constructor(
     photosService: PhotosService
