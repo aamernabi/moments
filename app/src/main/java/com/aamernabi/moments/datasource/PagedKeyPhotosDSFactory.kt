@@ -26,7 +26,7 @@ import kotlinx.coroutines.Job
 class PagedKeyPhotosDSFactory(
     private var job: Job?,
     private val service: PhotosService,
-    private var state: MutableLiveData<State<Nothing>>
+    private var state: MutableLiveData<State<Unit>>
 ) : DataSource.Factory<Int, Photo>() {
 
     override fun create(): DataSource<Int, Photo> {

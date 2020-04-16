@@ -25,21 +25,21 @@ import com.aamernabi.moments.datasource.PagedKeyPhotosDSFactory
 import com.aamernabi.moments.datasource.remote.photos.Photo
 import com.aamernabi.moments.datasource.remote.photos.PhotosService
 import com.aamernabi.moments.utils.State
-import javax.inject.Inject
 import kotlinx.coroutines.Job
+import javax.inject.Inject
 
 class PhotosViewModel @Inject constructor(
     photosService: PhotosService
 ) : ViewModel() {
 
-    private val _photosState = MutableLiveData<State<Nothing>>()
-    val photosState: LiveData<State<Nothing>> get() = _photosState
+    private val _photosState = MutableLiveData<State<Unit>>()
+    val photosState: LiveData<State<Unit>> get() = _photosState
 
     var currentIndex = 0
     private var job: Job? = null
 
     init {
-        _photosState.value = State.Loading()
+        _photosState.value = State.Loading
     }
 
     val photos: LiveData<PagedList<Photo>> = LivePagedListBuilder<Int, Photo>(

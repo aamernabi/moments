@@ -36,6 +36,6 @@ suspend inline fun <reified T> coroutineErrorHandler(t: Throwable): State<T> {
 
             State.Error(message, code)
         }
-        else -> State.Error(CONNECTION_ERROR)
+            else -> State.Error(t = t)
     }
 }

@@ -18,20 +18,20 @@ package com.aamernabi.moments.datasource
 
 import androidx.lifecycle.MutableLiveData
 import androidx.paging.PageKeyedDataSource
+import com.aamernabi.moments.datasource.remote.coroutineErrorHandler
 import com.aamernabi.moments.datasource.remote.photos.Photo
 import com.aamernabi.moments.datasource.remote.photos.PhotosService
-import com.aamernabi.moments.utils.Errors
 import com.aamernabi.moments.utils.State
-import java.net.UnknownHostException
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.Job
 import kotlinx.coroutines.launch
+import java.net.UnknownHostException
 
 class PagedKeyPhotosDS(
     private var job: Job?,
     private val service: PhotosService,
-    private var state: MutableLiveData<State<Nothing>>
+    private var state: MutableLiveData<State<Unit>>
 ) : PageKeyedDataSource<Int, Photo>() {
 
     override fun loadInitial(params: LoadInitialParams<Int>, callback: LoadInitialCallback<Int, Photo>) {
@@ -40,8 +40,11 @@ class PagedKeyPhotosDS(
                 val photos = service.getPhotos(1)
                 state.value = State.Success(null)
                 callback.onResult(photos, null, 2)
-            } catch (e: UnknownHostException) {
-                state.value = State.Error(null)
+            } catch (e: Exception) {
+                when(e) {
+                    is UnknownHostException -> state.value = State.Error(null)
+                    else -> state.value = coroutineErrorHandler(e)
+                }
             }
         }
     }
@@ -53,8 +56,11 @@ class PagedKeyPhotosDS(
             try {
                 val photos = service.getPhotos(page)
                 callback.onResult(photos, page + 1)
-            } catch (e: UnknownHostException) {
-                state.value = State.Error(null, Errors.NO_DATA)
+            } catch (e: Exception) {
+                when(e) {
+                    is UnknownHostException -> state.value = State.Error(null)
+                    else -> state.value = coroutineErrorHandler(e)
+                }
             }
         }
     }

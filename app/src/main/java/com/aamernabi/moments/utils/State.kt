@@ -17,9 +17,13 @@
 package com.aamernabi.moments.utils
 
 sealed class State<out T> {
-    class Loading<out T> : State<T>()
+    object Loading : State<Nothing>()
     data class Success<out T>(val data: T?) : State<T>()
-    data class Error<out T>(val message: String? = null, val errorCode: Int = -1) : State<T>()
+    data class Error(
+        val message: String? = null,
+        val errorCode: Int = -1,
+        val t: Throwable = Throwable(CONNECTION_ERROR)
+    ) : State<Nothing>()
 }
 
 /*fun <T> success(data: T): State.Success<T>.() -> Unit = {
