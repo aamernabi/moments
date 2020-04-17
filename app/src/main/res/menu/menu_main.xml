@@ -7,7 +7,7 @@
           android:orderInCategory="100"
           app:showAsAction="never"/>
 
-    <item android:id="@+id/action_settings"
+    <item android:id="@+id/action_dark_theme"
         android:title="@string/dark_dark_theme"
         android:orderInCategory="100"
         app:showAsAction="never"/>

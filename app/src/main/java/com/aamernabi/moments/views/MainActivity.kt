@@ -21,9 +21,9 @@ import android.view.Menu
 import android.view.MenuInflater
 import android.view.MenuItem
 import androidx.appcompat.app.AppCompatActivity
+import androidx.appcompat.app.AppCompatDelegate
 import com.aamernabi.moments.R
 import com.aamernabi.moments.databinding.ActivityMainBinding
-import com.aamernabi.moments.example.showMaterialDialog
 import com.aamernabi.moments.views.bindings.viewBinding
 import dagger.android.AndroidInjector
 import dagger.android.DispatchingAndroidInjector
@@ -57,20 +57,17 @@ class MainActivity : AppCompatActivity(), HasAndroidInjector {
 
     override fun onOptionsItemSelected(item: MenuItem): Boolean {
         return when (item.itemId) {
-            /*R.id.new_game -> {
-                newGame()
+            R.id.action_dark_theme -> {
+                AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_YES)
                 true
             }
-            R.id.help -> {
-                showHelp()
-                true
-            }*/
             R.id.action_light_theme -> {
-                showMaterialDialog(
+                /*showMaterialDialog(
                     this,
                     "Verify your identity",
                     "Login using fingerprint authentication."
-                )
+                )*/
+                AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_NO)
                 true
             }
             else -> super.onOptionsItemSelected(item)
