@@ -25,9 +25,11 @@ class PhotosService @Inject constructor(
     private val service: UnsplashApi
 ) {
 
-    suspend fun getPhotos(page: Int, perPage: Int = PER_PAGE): List<Photo> {
-        val request = service.getPhotosAsync(page, perPage)
-        return request.await()
+    suspend fun getPhotos(
+        page: Int,
+        perPage: Int = PER_PAGE
+    ): List<Photo> {
+        return service.getRecentPhotos(page, perPage)
     }
 
     companion object {
