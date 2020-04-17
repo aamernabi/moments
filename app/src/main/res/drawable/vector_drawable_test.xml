@@ -5,8 +5,8 @@
     android:viewportWidth="512"
     android:viewportHeight="512">
 
-    <path android:fillColor="@color/colorPrimary"
-        android:strokeColor="@color/colorAccent"
+    <path android:fillColor="@color/primaryColor"
+        android:strokeColor="@color/secondaryColor"
         android:strokeWidth="4"
         android:pathData="M100,100 L300,100 L200,300 z"/>
 

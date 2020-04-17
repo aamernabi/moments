@@ -1,11 +1,21 @@
 <resources>
 
-    <!-- Base application theme. -->
-    <style name="AppTheme" parent="Base.Theme.MaterialComponents.Light.DarkActionBar">
-        <!-- Customize your theme here. -->
-        <item name="colorPrimary">@color/colorPrimary</item>
-        <item name="colorPrimaryDark">@color/colorPrimaryDark</item>
-        <item name="colorAccent">@color/colorAccent</item>
+    <style name="AppTheme" parent="Theme.MaterialComponents.DayNight">
+        <item name="android:statusBarColor">@color/primaryDarkColor</item>
+        <item name="colorPrimary">@color/primaryColor</item>
+        <item name="colorPrimaryVariant">@color/primaryDarkColor</item>
+        <item name="colorOnPrimary">@color/primaryTextColor</item>
+        <item name="colorSecondary">@color/secondaryColor</item>
+        <item name="colorSecondaryVariant">@color/secondaryDarkColor</item>
+        <item name="colorOnSecondary">@color/secondaryTextColor</item>
+        <item name="colorError">@color/colorError</item>
+        <item name="shapeAppearanceSmallComponent">@style/ShapeAppearance.Moments.Small</item>
+        <item name="shapeAppearanceMediumComponent">@style/ShapeAppearance.Moments.Medium</item>
+        <item name="shapeAppearanceLargeComponent">@style/ShapeAppearance.Moments.Large</item>
+        <!--<item name="colorSurface">color on cards, bottomsheet..</item>-->
+        <!--<item name="colorOnSurface">text color on cards, bottomsheet..</item>-->
+        <!--<item name="android:colorBackground">color of window background</item>-->
+        <!--<item name="colorOnBackground">text color of window background</item>-->
     </style>
     <style name="AppTheme.NoActionBar">
         <item name="windowActionBar">false</item>
@@ -71,6 +81,25 @@
         <item name="android:fontFamily">@font/open_sans_semi_bold</item>
     </style>
 
+    <style name="ShapeAppearance"/>
+    <style name="ShapeAppearance.Moments"/>
+
+    <!--Buttons, text fields, FABs, chips, date picker items-->
+    <style name="ShapeAppearance.Moments.Small" parent="ShapeAppearance.MaterialComponents.SmallComponent">
+        <item name="cornerFamily">cut</item>
+        <item name="cornerSize">4dp</item>
+    </style>
+    <!--Cards, dialog, date picker container-->
+    <style name="ShapeAppearance.Moments.Medium" parent="ShapeAppearance.MaterialComponents.MediumComponent">
+        <item name="cornerFamily">cut</item>
+        <item name="cornerSize">16dp</item>
+    </style>
+    <!--BottomSheets-->
+    <style name="ShapeAppearance.Moments.Large" parent="ShapeAppearance.MaterialComponents.LargeComponent">
+        <item name="cornerFamily">cut</item>
+        <item name="cornerSize">24dp</item>
+    </style>
+
 
     <!--context theme wrapper example-->
     <style name="Theme.Demo" parent="AppTheme">
@@ -78,7 +107,7 @@
     </style>
 
     <style name="ThemeOverlay.Demo.Dialog" parent="ThemeOverlay.MaterialComponents.MaterialAlertDialog">
-        <item name="colorPrimary">@color/colorAccent</item>
+        <item name="colorPrimary">@color/secondaryColor</item>
     </style>
 
 
