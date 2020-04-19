@@ -4,6 +4,9 @@ apply plugin: 'kotlin-android-extensions'
 apply plugin: 'kotlin-kapt'
 apply plugin: 'io.fabric'
 
+apply from: '../shared_dep.gradle'
+apply from: '../shared_test_dep.gradle'
+
 android {
     compileSdkVersion versions.compile_sdk
     defaultConfig {
@@ -45,8 +48,8 @@ android {
 }
 
 dependencies {
+    implementation project(':core')
     implementation fileTree(dir: 'libs', include: ['*.jar'])
-    implementation "org.jetbrains.kotlin:kotlin-stdlib-jdk7:$versions.kotlin"
     implementation "androidx.constraintlayout:constraintlayout:$versions.constraint_layout"
 
     implementation "androidx.paging:paging-runtime:$versions.paging_runtime"
@@ -75,10 +78,7 @@ dependencies {
     implementation "org.jetbrains.kotlinx:kotlinx-coroutines-android:$versions.coroutines"
     implementation "com.jakewharton.retrofit:retrofit2-kotlin-coroutines-adapter:$versions.retrofit_coroutines_adapter"
 
-    implementation "com.squareup.retrofit2:retrofit:$versions.retrofit"
-    implementation "com.squareup.retrofit2:converter-moshi:$versions.retrofit"
     implementation "com.squareup.okhttp3:logging-interceptor:$versions.logging_interceptor"
-    implementation "com.squareup.retrofit2:converter-gson:$versions.retrofit"
 
     implementation "com.google.firebase:firebase-core:$versions.firebase"
     implementation "com.crashlytics.sdk.android:crashlytics:$versions.crashlytics"
@@ -89,10 +89,6 @@ dependencies {
     kapt "com.google.dagger:dagger-android-processor:$versions.dagger"
 
     implementation "com.airbnb.android:lottie:$versions.lottie"
-
-    testImplementation "junit:junit:$versions.junit"
-    androidTestImplementation "androidx.test.ext:junit:$versions.ext_junit"
-    androidTestImplementation "androidx.test.espresso:espresso-core:$versions.espresso"
 }
 
 apply plugin: 'com.google.gms.google-services'

@@ -3,6 +3,9 @@ apply plugin: 'kotlin-android'
 apply plugin: 'kotlin-android-extensions'
 apply plugin: 'kotlin-kapt'
 
+apply from: '../shared_dep.gradle'
+apply from: '../shared_test_dep.gradle'
+
 android {
     compileSdkVersion versions.compile_sdk
 
@@ -26,11 +29,5 @@ android {
 
 dependencies {
     implementation fileTree(dir: 'libs', include: ['*.jar'])
-    implementation "org.jetbrains.kotlin:kotlin-stdlib-jdk7:$versions.kotlin"
     implementation "androidx.appcompat:appcompat:$versions.appcompat"
-    implementation "androidx.core:core-ktx:$versions.ktx"
-
-    testImplementation "junit:junit:$versions.junit"
-    androidTestImplementation "androidx.test.ext:junit:$versions.ext_junit"
-    androidTestImplementation "androidx.test.espresso:espresso-core:$versions.espresso"
 }
