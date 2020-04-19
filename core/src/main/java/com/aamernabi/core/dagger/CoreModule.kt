@@ -59,5 +59,5 @@ class CoreModule {
 
     @Provides
     @Singleton
-    fun provideConverterFactory(moshi: Moshi) = MoshiConverterFactory.create(moshi)
+    fun provideConverterFactory(moshi: Moshi): MoshiConverterFactory = MoshiConverterFactory.create(moshi)
 }
