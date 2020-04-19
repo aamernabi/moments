@@ -30,4 +30,6 @@ android {
 dependencies {
     implementation fileTree(dir: 'libs', include: ['*.jar'])
     implementation "androidx.appcompat:appcompat:$versions.appcompat"
+    implementation "com.squareup.okhttp3:logging-interceptor:$versions.okhttp"
+    kapt "com.google.dagger:dagger-compiler:$versions.dagger"
 }
