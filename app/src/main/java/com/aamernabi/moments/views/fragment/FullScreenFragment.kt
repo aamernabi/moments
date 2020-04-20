@@ -23,13 +23,13 @@ import android.view.ViewGroup
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
+import com.aamernabi.core.utils.delegates.viewBinding
 import com.aamernabi.moments.R
 import com.aamernabi.moments.databinding.FragmentFullScreenBinding
 import com.aamernabi.moments.di.Injectable
 import com.aamernabi.moments.viewmodels.PhotosViewModel
 import com.aamernabi.moments.views.MainActivity
 import com.aamernabi.moments.views.adapter.FullScreenAdapter
-import com.aamernabi.moments.views.bindings.viewBinding
 import javax.inject.Inject
 
 class FullScreenFragment : Fragment(), Injectable {

@@ -22,9 +22,9 @@ import android.view.MenuInflater
 import android.view.MenuItem
 import androidx.appcompat.app.AppCompatActivity
 import androidx.appcompat.app.AppCompatDelegate
+import com.aamernabi.core.utils.delegates.viewBinding
 import com.aamernabi.moments.R
 import com.aamernabi.moments.databinding.ActivityMainBinding
-import com.aamernabi.moments.views.bindings.viewBinding
 import dagger.android.AndroidInjector
 import dagger.android.DispatchingAndroidInjector
 import dagger.android.HasAndroidInjector
