@@ -14,7 +14,7 @@
  * limitations under the License.
  */
 
-package com.aamernabi.moments.views.bindings
+package com.aamernabi.core.utils.delegates
 
 import android.view.LayoutInflater
 import android.view.View
