@@ -21,10 +21,10 @@ import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.paging.LivePagedListBuilder
 import androidx.paging.PagedList
+import com.aamernabi.core.data.State
 import com.aamernabi.moments.datasource.PagedKeyPhotosDSFactory
 import com.aamernabi.moments.datasource.remote.photos.Photo
 import com.aamernabi.moments.datasource.remote.photos.PhotosService
-import com.aamernabi.moments.utils.State
 import javax.inject.Inject
 import kotlinx.coroutines.Job
 

@@ -24,13 +24,13 @@ import androidx.fragment.app.Fragment
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
 import androidx.navigation.Navigation
+import com.aamernabi.core.data.State
 import com.aamernabi.core.utils.delegates.viewBinding
 import com.aamernabi.moments.R
 import com.aamernabi.moments.databinding.FragmentPhotosBinding
 import com.aamernabi.moments.di.Injectable
 import com.aamernabi.moments.utils.Errors
 import com.aamernabi.moments.utils.OnItemClickListener
-import com.aamernabi.moments.utils.State
 import com.aamernabi.moments.viewmodels.PhotosViewModel
 import com.aamernabi.moments.views.adapter.PhotoAdapter
 import javax.inject.Inject
@@ -79,7 +79,7 @@ class PhotosFragment : Fragment(), OnItemClickListener, Injectable {
             when (state) {
                 is State.Loading -> showProgress()
                 is State.Success -> onSuccess()
-                is State.Error -> onError(state.message, state.errorCode)
+                is State.Error -> onError(state.t, state.code)
             }
         })
     }
@@ -102,14 +102,14 @@ class PhotosFragment : Fragment(), OnItemClickListener, Injectable {
         binding.progressBar.visibility = View.VISIBLE
     }
 
-    private fun onError(message: String?, errorCode: Int?) {
+    private fun onError(t: Throwable, errorCode: Int?) {
         binding.progressBar.visibility = View.GONE
 
         if (errorCode != Errors.NO_DATA) {
             binding.recyclerView.visibility = View.GONE
             binding.tvNoInternet.visibility = View.VISIBLE
             binding.tvNoInternet.text =
-                if (message.isNullOrEmpty()) binding.tvNoInternet.text else message
+                if (t.message.isNullOrEmpty()) binding.tvNoInternet.text else t.message
         }
     }
 }

@@ -18,9 +18,9 @@ package com.aamernabi.moments.datasource
 
 import androidx.lifecycle.MutableLiveData
 import androidx.paging.DataSource
+import com.aamernabi.core.data.State
 import com.aamernabi.moments.datasource.remote.photos.Photo
 import com.aamernabi.moments.datasource.remote.photos.PhotosService
-import com.aamernabi.moments.utils.State
 import kotlinx.coroutines.Job
 
 class PagedKeyPhotosDSFactory(

@@ -18,10 +18,10 @@ package com.aamernabi.moments.datasource
 
 import androidx.lifecycle.MutableLiveData
 import androidx.paging.PageKeyedDataSource
+import com.aamernabi.core.data.State
 import com.aamernabi.moments.datasource.remote.coroutineErrorHandler
 import com.aamernabi.moments.datasource.remote.photos.Photo
 import com.aamernabi.moments.datasource.remote.photos.PhotosService
-import com.aamernabi.moments.utils.State
 import java.net.UnknownHostException
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
@@ -42,7 +42,7 @@ class PagedKeyPhotosDS(
                 callback.onResult(photos, null, 2)
             } catch (e: Exception) {
                 when (e) {
-                    is UnknownHostException -> state.value = State.Error(null)
+                    is UnknownHostException -> state.value = State.Error(e)
                     else -> state.value = coroutineErrorHandler(e)
                 }
             }
@@ -58,7 +58,7 @@ class PagedKeyPhotosDS(
                 callback.onResult(photos, page + 1)
             } catch (e: Exception) {
                 when (e) {
-                    is UnknownHostException -> state.value = State.Error(null)
+                    is UnknownHostException -> state.value = State.Error(e)
                     else -> state.value = coroutineErrorHandler(e)
                 }
             }
