@@ -2,32 +2,32 @@ package com.aamernabi.moments.playground
 
 import androidx.lifecycle.*
 import kotlinx.coroutines.delay
-import kotlinx.coroutines.launch
 
 class LiveDataCouroutineBuilder : ViewModel() {
 
-    private val _weather = MutableLiveData<String>()
-    val weather: LiveData<String> get() = _weather
+    private val _city = MutableLiveData<String>()
 
-    init {
-        viewModelScope.launch {
-            _weather.value = "Loading"
-            _weather.value = Api.fetchWeather()
+    val weather: LiveData<String> = _city.switchMap {
+        liveData {
+            emit("Loading")
+            emit(Api.fetchWeather(it))
         }
     }
 
-    //using coroutine builder
-    val weather2: LiveData<String> = liveData {
-        emit("Loading")
-        emit(Api.fetchWeather())
+
+    fun setCity(city: String) {
+        _city.value = city
     }
 }
 
 object Api {
 
-    suspend fun fetchWeather(): String {
+    suspend fun fetchWeather(city: String): String {
         delay(2000)
-        return listOf("Sunny", "Rainy", "Cloudy", "Snowy").random()
+        return when (city) {
+            "London" -> "Rainy"
+            else -> listOf("Sunny", "Rainy", "Cloudy", "Snowy").random()
+        }
     }
 
 }
