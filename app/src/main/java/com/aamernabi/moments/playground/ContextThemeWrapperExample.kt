@@ -14,7 +14,7 @@
  * limitations under the License.
  */
 
-package com.aamernabi.moments.example
+package com.aamernabi.moments.playground
 
 import android.annotation.SuppressLint
 import android.content.Context
