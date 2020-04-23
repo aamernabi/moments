@@ -21,12 +21,14 @@ import com.aamernabi.moments.datasource.remote.photos.Error
 import com.aamernabi.moments.utils.CONNECTION_ERROR
 import com.aamernabi.moments.utils.fromJson
 import java.io.IOException
+import java.net.UnknownHostException
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.withContext
 import retrofit2.HttpException
 
-suspend inline fun <reified T> coroutineErrorHandler(t: Throwable): State<T> {
+suspend inline fun coroutineErrorHandler(t: Throwable): State.Error {
     return when (t) {
+        is UnknownHostException -> State.Error(t)
         is IOException -> State.Error(t)
         is HttpException -> {
             val code = t.code()
