@@ -19,36 +19,40 @@ package com.aamernabi.moments.viewmodels
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
-import androidx.paging.LivePagedListBuilder
+import androidx.lifecycle.viewModelScope
 import androidx.paging.PagedList
+import androidx.paging.toLiveData
 import com.aamernabi.core.data.State
-import com.aamernabi.moments.datasource.PagedKeyPhotosDSFactory
+import com.aamernabi.moments.datasource.PhotosRemoteDataSource
+import com.aamernabi.moments.datasource.remote.coroutineErrorHandler
 import com.aamernabi.moments.datasource.remote.photos.Photo
 import com.aamernabi.moments.datasource.remote.photos.PhotosService
 import javax.inject.Inject
-import kotlinx.coroutines.Job
 
 class PhotosViewModel @Inject constructor(
-    photosService: PhotosService
+    private val photosService: PhotosService
 ) : ViewModel() {
 
     private val _photosState = MutableLiveData<State<Unit>>()
     val photosState: LiveData<State<Unit>> get() = _photosState
 
     var currentIndex = 0
-    private var job: Job? = null
 
-    init {
-        _photosState.value = State.Loading
-    }
+    val photos: LiveData<PagedList<Photo>> =
+        PhotosRemoteDataSource.Factory(viewModelScope, this::fetchPhotos).toLiveData(20)
 
-    val photos: LiveData<PagedList<Photo>> = LivePagedListBuilder<Int, Photo>(
-        PagedKeyPhotosDSFactory(job, photosService, _photosState),
-        20
-    ).build()
+    private suspend fun fetchPhotos(page: Int): List<Photo> {
+        if (page == 1) {
+            _photosState.value = State.Loading
+        }
 
-    override fun onCleared() {
-        job?.cancel()
-        super.onCleared()
+        return try {
+            photosService.getPhotos(page).also {
+                if (page == 1) _photosState.value = State.Success(null)
+            }
+        } catch (e: Exception) {
+            _photosState.value = coroutineErrorHandler(e)
+            emptyList()
+        }
     }
 }
