@@ -19,10 +19,10 @@ package com.aamernabi.moments.datasource
 import androidx.paging.DataSource
 import androidx.paging.PageKeyedDataSource
 import com.aamernabi.moments.datasource.remote.photos.Photo
+import kotlin.reflect.KSuspendFunction1
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.cancel
 import kotlinx.coroutines.launch
-import kotlin.reflect.KSuspendFunction1
 
 class PhotosRemoteDataSource(
     private val scope: CoroutineScope,
@@ -63,5 +63,4 @@ class PhotosRemoteDataSource(
             return PhotosRemoteDataSource(scope, fetchPhotos)
         }
     }
-
 }
