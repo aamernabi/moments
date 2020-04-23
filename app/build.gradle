@@ -53,6 +53,7 @@ dependencies {
     implementation "androidx.constraintlayout:constraintlayout:$versions.constraint_layout"
 
     implementation "androidx.paging:paging-runtime:$versions.paging_runtime"
+    implementation "androidx.paging:paging-runtime-ktx:$versions.paging_runtime"
 
     implementation "androidx.appcompat:appcompat:$versions.appcompat"
     implementation "com.google.android.material:material:$versions.material"
