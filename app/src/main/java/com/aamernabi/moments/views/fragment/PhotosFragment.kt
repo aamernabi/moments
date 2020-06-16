@@ -28,14 +28,15 @@ import com.aamernabi.core.data.State
 import com.aamernabi.core.utils.delegates.viewBinding
 import com.aamernabi.moments.R
 import com.aamernabi.moments.databinding.FragmentPhotosBinding
-import com.aamernabi.moments.di.Injectable
+import com.aamernabi.core.dagger.Injectable
 import com.aamernabi.moments.utils.Errors
 import com.aamernabi.moments.utils.OnItemClickListener
 import com.aamernabi.moments.viewmodels.PhotosViewModel
 import com.aamernabi.moments.views.adapter.PhotoAdapter
 import javax.inject.Inject
 
-class PhotosFragment : Fragment(), OnItemClickListener, Injectable {
+class PhotosFragment : Fragment(), OnItemClickListener,
+    Injectable {
 
     @Inject
     lateinit var viewModelFactory: ViewModelProvider.Factory

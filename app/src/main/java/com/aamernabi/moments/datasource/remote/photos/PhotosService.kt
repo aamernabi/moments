@@ -16,11 +16,11 @@
 
 package com.aamernabi.moments.datasource.remote.photos
 
+import com.aamernabi.core.dagger.scopes.FeatureScope
 import com.aamernabi.moments.datasource.remote.UnsplashApi
 import javax.inject.Inject
-import javax.inject.Singleton
 
-@Singleton
+@FeatureScope
 class PhotosService @Inject constructor(
     private val service: UnsplashApi
 ) {

@@ -18,6 +18,7 @@ package com.aamernabi.moments.di
 
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.ViewModelProvider
+import com.aamernabi.core.dagger.ViewModelKey
 import com.aamernabi.moments.viewmodels.PhotosViewModel
 import dagger.Binds
 import dagger.Module

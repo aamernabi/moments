@@ -23,6 +23,8 @@ import android.os.Bundle
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.FragmentActivity
 import androidx.fragment.app.FragmentManager
+import com.aamernabi.core.dagger.DaggerCoreComponent
+import com.aamernabi.core.dagger.Injectable
 import com.aamernabi.moments.App
 import dagger.android.AndroidInjection
 import dagger.android.HasAndroidInjector
@@ -31,7 +33,11 @@ import dagger.android.support.AndroidSupportInjection
 object AppInjector {
 
     fun init(app: App) {
-        DaggerAppComponent.builder().application(app).build().inject(app)
+        DaggerAppComponent.builder()
+            .application(app)
+            .coreComponent(DaggerCoreComponent.create())
+            .build()
+            .inject(app)
 
         app.registerActivityLifecycleCallbacks(object : Application.ActivityLifecycleCallbacks {
             override fun onActivityPaused(p0: Activity) {}

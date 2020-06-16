@@ -18,6 +18,7 @@ package com.aamernabi.moments.di
 
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.ViewModelProvider
+import com.aamernabi.core.dagger.scopes.FeatureScope
 import java.lang.Exception
 import java.lang.RuntimeException
 import javax.inject.Inject
@@ -25,7 +26,7 @@ import javax.inject.Provider
 import javax.inject.Singleton
 
 @Suppress("UNCHECKED_CAST")
-@Singleton
+@FeatureScope
 class ViewModelFactory @Inject constructor(
     private val map: Map<Class<out ViewModel>, @JvmSuppressWildcards Provider<ViewModel>>
 ) : ViewModelProvider.Factory {

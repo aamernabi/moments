@@ -17,21 +17,23 @@
 package com.aamernabi.moments.di
 
 import android.app.Application
+import com.aamernabi.core.dagger.CoreComponent
+import com.aamernabi.core.dagger.scopes.FeatureScope
 import com.aamernabi.moments.App
 import dagger.BindsInstance
 import dagger.Component
 import dagger.android.AndroidInjectionModule
 import dagger.android.AndroidInjector
-import javax.inject.Singleton
 
-@Singleton
+@FeatureScope
 @Component(
     modules = [
         AndroidInjectionModule::class,
         AppModule::class,
         ActivityBuilderModule::class,
         GlideBuilderModule::class
-    ]
+    ],
+    dependencies = [CoreComponent::class]
 )
 interface AppComponent : AndroidInjector<App> {
 
@@ -40,7 +42,7 @@ interface AppComponent : AndroidInjector<App> {
 
         @BindsInstance
         fun application(application: Application): Builder
-
+        fun coreComponent(module: CoreComponent): Builder
         fun build(): AppComponent
     }
 

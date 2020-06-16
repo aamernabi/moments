@@ -16,14 +16,21 @@
 
 package com.aamernabi.core.dagger
 
+import com.squareup.moshi.Moshi
 import dagger.Component
+import okhttp3.OkHttpClient
+import retrofit2.converter.moshi.MoshiConverterFactory
 import javax.inject.Singleton
 
-@Component(modules = [CoreModule::class])
 @Singleton
+@Component(modules = [CoreModule::class])
 interface CoreComponent {
 
     @Component.Builder interface Builder {
         fun build(): CoreComponent
     }
+
+    fun provideOkHttpClient(): OkHttpClient
+    fun provideMoshi(): Moshi
+    fun provideMoshiConverterFactory(): MoshiConverterFactory
 }

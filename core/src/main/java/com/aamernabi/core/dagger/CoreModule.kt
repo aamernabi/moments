@@ -33,7 +33,6 @@ import retrofit2.converter.moshi.MoshiConverterFactory
 class CoreModule {
 
     @Provides
-    @Singleton
     fun provideLoggingInterceptor() = HttpLoggingInterceptor().apply {
         level = when (BuildConfig.DEBUG) {
             true -> HttpLoggingInterceptor.Level.BODY
@@ -42,7 +41,6 @@ class CoreModule {
     }
 
     @Provides
-    @Singleton
     fun provideOkHttpClient(interceptor: HttpLoggingInterceptor): OkHttpClient {
         return OkHttpClient.Builder()
             .addInterceptor(interceptor)

@@ -26,7 +26,7 @@ import androidx.lifecycle.ViewModelProvider
 import com.aamernabi.core.utils.delegates.viewBinding
 import com.aamernabi.moments.R
 import com.aamernabi.moments.databinding.FragmentFullScreenBinding
-import com.aamernabi.moments.di.Injectable
+import com.aamernabi.core.dagger.Injectable
 import com.aamernabi.moments.viewmodels.PhotosViewModel
 import com.aamernabi.moments.views.MainActivity
 import com.aamernabi.moments.views.adapter.FullScreenAdapter
