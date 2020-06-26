@@ -30,6 +30,7 @@ import com.aamernabi.core.dagger.Injectable
 import com.aamernabi.moments.viewmodels.PhotosViewModel
 import com.aamernabi.moments.views.MainActivity
 import com.aamernabi.moments.views.adapter.FullScreenAdapter
+import kotlinx.android.synthetic.main.fragment_full_screen.*
 import javax.inject.Inject
 
 class FullScreenFragment : Fragment(), Injectable {
@@ -53,6 +54,8 @@ class FullScreenFragment : Fragment(), Injectable {
 
         viewModel = ViewModelProvider(activity ?: error("activity null"), viewModelFactory)
             .get(PhotosViewModel::class.java)
+
+        fab_download.show()
 
         val photos = viewModel.photos.value ?: return
         binding.viewPager.adapter = FullScreenAdapter().apply { addAll(photos) }
