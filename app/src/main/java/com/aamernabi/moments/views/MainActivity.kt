@@ -129,7 +129,7 @@ class MainActivity : AppCompatActivity(), HasAndroidInjector {
         val file = File(getExternalFilesDir(null), fileName)
 
         val request = DownloadManager.Request(uri)
-            .setTitle("My File")
+            .setTitle(fileName)
             .setDescription("Downloading")
             .setNotificationVisibility(VISIBILITY_VISIBLE)
             .setDestinationUri(Uri.fromFile(file))
