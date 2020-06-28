@@ -36,6 +36,9 @@ class PhotosViewModel @Inject constructor(
     private val _photosState = MutableLiveData<State<Unit>>()
     val photosState: LiveData<State<Unit>> get() = _photosState
 
+    private val _downloadImage = MutableLiveData<String>()
+    val downloadImage: LiveData<String> get() = _downloadImage
+
     var currentIndex = 0
 
     val photos: LiveData<PagedList<Photo>> =
@@ -54,5 +57,9 @@ class PhotosViewModel @Inject constructor(
             _photosState.value = coroutineErrorHandler(e)
             emptyList()
         }
+    }
+
+    fun downloadImage(full: String) {
+        _downloadImage.value = full
     }
 }

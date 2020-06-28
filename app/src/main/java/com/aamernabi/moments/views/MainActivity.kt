@@ -16,26 +16,56 @@
 
 package com.aamernabi.moments.views
 
+import android.app.DownloadManager
+import android.app.DownloadManager.Request.VISIBILITY_VISIBLE
+import android.content.BroadcastReceiver
+import android.content.Context
+import android.content.Intent
+import android.content.IntentFilter
+import android.net.Uri
 import android.os.Bundle
 import android.view.Menu
 import android.view.MenuInflater
 import android.view.MenuItem
+import androidx.activity.viewModels
 import androidx.appcompat.app.AppCompatActivity
 import androidx.appcompat.app.AppCompatDelegate
+import androidx.lifecycle.ViewModelProvider
+import androidx.lifecycle.observe
+import androidx.localbroadcastmanager.content.LocalBroadcastManager
 import com.aamernabi.core.utils.delegates.viewBinding
 import com.aamernabi.moments.R
 import com.aamernabi.moments.databinding.ActivityMainBinding
+import com.aamernabi.moments.viewmodels.PhotosViewModel
+import com.google.android.material.snackbar.Snackbar
 import dagger.android.AndroidInjector
 import dagger.android.DispatchingAndroidInjector
 import dagger.android.HasAndroidInjector
+import java.io.File
 import javax.inject.Inject
+
 
 class MainActivity : AppCompatActivity(), HasAndroidInjector {
 
     @Inject
     lateinit var dispatchingAndroidInjector: DispatchingAndroidInjector<Any>
 
+    @Inject
+    lateinit var factory: ViewModelProvider.Factory
+    private val viewModel by viewModels<PhotosViewModel> { factory }
+
     private val bindings by viewBinding(ActivityMainBinding::inflate)
+
+    private var downloadId: Long? = null
+
+    private val downloadReceiver: BroadcastReceiver = object : BroadcastReceiver() {
+        override fun onReceive(context: Context, intent: Intent) {
+            val id = intent.getLongExtra(DownloadManager.EXTRA_DOWNLOAD_ID, -1)
+            if (downloadId == id) {
+                Snackbar.make(bindings.root, "Download Completed", Snackbar.LENGTH_SHORT).show()
+            }
+        }
+    }
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -43,6 +73,18 @@ class MainActivity : AppCompatActivity(), HasAndroidInjector {
         setSupportActionBar(bindings.toolbar)
 
         bindings.toolbar.setBackgroundResource(R.drawable.bg_app_bar)
+        viewModel.downloadImage.observe(this, ::onDownloadImage)
+
+        LocalBroadcastManager.getInstance(this)
+            .registerReceiver(
+                downloadReceiver,
+                IntentFilter(DownloadManager.ACTION_DOWNLOAD_COMPLETE)
+            )
+    }
+
+    override fun onDestroy() {
+        super.onDestroy()
+        LocalBroadcastManager.getInstance(this).unregisterReceiver(downloadReceiver)
     }
 
     fun hideToolbar() {
@@ -75,4 +117,25 @@ class MainActivity : AppCompatActivity(), HasAndroidInjector {
     }
 
     override fun androidInjector(): AndroidInjector<Any> = dispatchingAndroidInjector
+
+    private fun onDownloadImage(url: String) {
+        val dm = getSystemService(Context.DOWNLOAD_SERVICE) as DownloadManager
+        val uri = Uri.parse(url)
+
+        val fileName = uri.path
+            ?.replace("\\", "")
+            ?.plus(".${uri.getQueryParameter("fm")}") ?: return
+
+        val file = File(getExternalFilesDir(null), fileName)
+
+        val request = DownloadManager.Request(uri)
+            .setTitle("My File")
+            .setDescription("Downloading")
+            .setNotificationVisibility(VISIBILITY_VISIBLE)
+            .setDestinationUri(Uri.fromFile(file))
+            .setAllowedOverMetered(true)
+            .setAllowedOverRoaming(true)
+
+        downloadId = dm.enqueue(request)
+    }
 }

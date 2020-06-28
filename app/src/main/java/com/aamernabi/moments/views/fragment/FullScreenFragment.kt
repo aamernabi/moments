@@ -56,12 +56,18 @@ class FullScreenFragment : Fragment(), Injectable {
             .get(PhotosViewModel::class.java)
 
         fab_download.show()
+        fab_download.setOnClickListener { downloadImage() }
 
         val photos = viewModel.photos.value ?: return
         binding.viewPager.adapter = FullScreenAdapter().apply { addAll(photos) }
         binding.viewPager.currentItem = viewModel.currentIndex
 
         attachPhotosObserver()
+    }
+
+    private fun downloadImage() {
+        val image = viewModel.photos.value?.let { it[viewModel.currentIndex] } ?: return
+        viewModel.downloadImage(image.urls.full)
     }
 
     override fun onResume() {
