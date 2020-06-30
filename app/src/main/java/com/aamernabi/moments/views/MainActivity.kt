@@ -23,6 +23,7 @@ import android.content.Context
 import android.content.Intent
 import android.content.IntentFilter
 import android.net.Uri
+import android.os.Build
 import android.os.Bundle
 import android.view.Menu
 import android.view.MenuInflater
@@ -33,15 +34,16 @@ import androidx.appcompat.app.AppCompatDelegate
 import androidx.lifecycle.ViewModelProvider
 import androidx.lifecycle.observe
 import androidx.localbroadcastmanager.content.LocalBroadcastManager
+import com.aamernabi.core.utils.createUri
+import com.aamernabi.core.utils.createUriPreQ
 import com.aamernabi.core.utils.delegates.viewBinding
 import com.aamernabi.moments.R
 import com.aamernabi.moments.databinding.ActivityMainBinding
+import com.aamernabi.moments.utils.extensions.showSnackbar
 import com.aamernabi.moments.viewmodels.PhotosViewModel
-import com.google.android.material.snackbar.Snackbar
 import dagger.android.AndroidInjector
 import dagger.android.DispatchingAndroidInjector
 import dagger.android.HasAndroidInjector
-import java.io.File
 import javax.inject.Inject
 
 
@@ -62,7 +64,7 @@ class MainActivity : AppCompatActivity(), HasAndroidInjector {
         override fun onReceive(context: Context, intent: Intent) {
             val id = intent.getLongExtra(DownloadManager.EXTRA_DOWNLOAD_ID, -1)
             if (downloadId == id) {
-                Snackbar.make(bindings.root, "Download Completed", Snackbar.LENGTH_SHORT).show()
+                showSnackbar("Download Completed", bindings.root)
             }
         }
     }
@@ -126,16 +128,21 @@ class MainActivity : AppCompatActivity(), HasAndroidInjector {
             ?.replace("\\", "")
             ?.plus(".${uri.getQueryParameter("fm")}") ?: return
 
-        val file = File(getExternalFilesDir(null), fileName)
+        val fileUri = if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.Q) {
+            createUri(this, fileName)
+        } else {
+            createUriPreQ(fileName)
+        }
 
         val request = DownloadManager.Request(uri)
             .setTitle(fileName)
             .setDescription("Downloading")
             .setNotificationVisibility(VISIBILITY_VISIBLE)
-            .setDestinationUri(Uri.fromFile(file))
+            .setDestinationUri(fileUri)
             .setAllowedOverMetered(true)
             .setAllowedOverRoaming(true)
 
         downloadId = dm.enqueue(request)
+        showSnackbar("Download Started", bindings.root)
     }
 }
