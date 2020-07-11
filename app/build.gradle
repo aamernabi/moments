@@ -86,6 +86,7 @@ dependencies {
     kapt "com.google.dagger:dagger-android-processor:$versions.dagger"
 
     implementation "com.airbnb.android:lottie:$versions.lottie"
+    implementation "androidx.viewpager2:viewpager2:$versions.viewpager2"
 }
 
 apply plugin: 'com.google.gms.google-services'
