@@ -18,9 +18,9 @@ package com.aamernabi.core.dagger
 
 import com.squareup.moshi.Moshi
 import dagger.Component
+import javax.inject.Singleton
 import okhttp3.OkHttpClient
 import retrofit2.converter.moshi.MoshiConverterFactory
-import javax.inject.Singleton
 
 @Singleton
 @Component(modules = [CoreModule::class])

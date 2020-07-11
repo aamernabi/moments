@@ -1,3 +1,19 @@
+/*
+ * Copyright 2020 aamernabi
+ *
+ * Licensed under the Apache License, Version 2.0 (the "License");
+ * you may not use this file except in compliance with the License.
+ * You may obtain a copy of the License at
+ *
+ *     http://www.apache.org/licenses/LICENSE-2.0
+ *
+ * Unless required by applicable law or agreed to in writing, software
+ * distributed under the License is distributed on an "AS IS" BASIS,
+ * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ * See the License for the specific language governing permissions and
+ * limitations under the License.
+ */
+
 package com.aamernabi.moments.utils
 
 import android.content.Context
@@ -172,8 +188,8 @@ open class PinchableImageView : AppCompatImageView {
         viewWidth = MeasureSpec.getSize(widthMeasureSpec)
         viewHeight = MeasureSpec.getSize(heightMeasureSpec)
 
-        if (oldMeasuredHeight == viewWidth && oldMeasuredHeight == viewHeight
-            || viewWidth == 0 || viewHeight == 0
+        if (oldMeasuredHeight == viewWidth && oldMeasuredHeight == viewHeight ||
+            viewWidth == 0 || viewHeight == 0
         ) return
         oldMeasuredHeight = viewHeight
         oldMeasuredWidth = viewWidth
@@ -183,8 +199,8 @@ open class PinchableImageView : AppCompatImageView {
             val scale: Float
 
             val drawable = drawable
-            if (drawable == null || drawable.intrinsicWidth == 0
-                || drawable.intrinsicHeight == 0
+            if (drawable == null || drawable.intrinsicWidth == 0 ||
+                drawable.intrinsicHeight == 0
             )
                 return
             val bmWidth = drawable.intrinsicWidth

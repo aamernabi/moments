@@ -24,11 +24,11 @@ import androidx.fragment.app.Fragment
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
 import androidx.navigation.Navigation
+import com.aamernabi.core.dagger.Injectable
 import com.aamernabi.core.data.State
 import com.aamernabi.core.utils.delegates.viewBinding
 import com.aamernabi.moments.R
 import com.aamernabi.moments.databinding.FragmentPhotosBinding
-import com.aamernabi.core.dagger.Injectable
 import com.aamernabi.moments.utils.Errors
 import com.aamernabi.moments.utils.OnItemClickListener
 import com.aamernabi.moments.viewmodels.PhotosViewModel

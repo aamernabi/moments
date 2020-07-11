@@ -46,7 +46,6 @@ import dagger.android.DispatchingAndroidInjector
 import dagger.android.HasAndroidInjector
 import javax.inject.Inject
 
-
 class MainActivity : AppCompatActivity(), HasAndroidInjector {
 
     @Inject

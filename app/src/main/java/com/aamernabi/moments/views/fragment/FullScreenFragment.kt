@@ -21,23 +21,25 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
-import androidx.lifecycle.Observer
+import androidx.fragment.app.activityViewModels
 import androidx.lifecycle.ViewModelProvider
+import androidx.lifecycle.observe
+import com.aamernabi.core.dagger.Injectable
 import com.aamernabi.core.utils.delegates.viewBinding
 import com.aamernabi.moments.R
 import com.aamernabi.moments.databinding.FragmentFullScreenBinding
-import com.aamernabi.core.dagger.Injectable
+import com.aamernabi.moments.datasource.remote.photos.Photo
 import com.aamernabi.moments.viewmodels.PhotosViewModel
 import com.aamernabi.moments.views.MainActivity
-import com.aamernabi.moments.views.adapter.FullScreenAdapter
-import kotlinx.android.synthetic.main.fragment_full_screen.*
+import com.aamernabi.moments.views.adapter.FullScreenAdapter2
 import javax.inject.Inject
+import kotlinx.android.synthetic.main.fragment_full_screen.*
 
 class FullScreenFragment : Fragment(), Injectable {
 
     @Inject
-    lateinit var viewModelFactory: ViewModelProvider.Factory
-    private lateinit var viewModel: PhotosViewModel
+    lateinit var factory: ViewModelProvider.Factory
+    private val viewModel: PhotosViewModel by activityViewModels { factory }
 
     private val binding by viewBinding(FragmentFullScreenBinding::bind)
 
@@ -52,17 +54,14 @@ class FullScreenFragment : Fragment(), Injectable {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
-        viewModel = ViewModelProvider(activity ?: error("activity null"), viewModelFactory)
-            .get(PhotosViewModel::class.java)
-
         fab_download.show()
         fab_download.setOnClickListener { downloadImage() }
 
-        val photos = viewModel.photos.value ?: return
-        binding.viewPager.adapter = FullScreenAdapter().apply { addAll(photos) }
+        binding.viewPager.adapter = FullScreenAdapter2()
+        viewModel.photos.value?.let { submitList(it) }
         binding.viewPager.currentItem = viewModel.currentIndex
 
-        attachPhotosObserver()
+        viewModel.photos.observe(viewLifecycleOwner, ::submitList)
     }
 
     private fun downloadImage() {
@@ -72,13 +71,10 @@ class FullScreenFragment : Fragment(), Injectable {
 
     override fun onResume() {
         super.onResume()
-
         (activity as MainActivity?)?.hideToolbar()
     }
 
-    private fun attachPhotosObserver() {
-        viewModel.photos.observe(viewLifecycleOwner, Observer { photos ->
-            (binding.viewPager.adapter as FullScreenAdapter?)?.addAll(photos ?: return@Observer)
-        })
+    private fun submitList(photos: List<Photo>) {
+        (binding.viewPager.adapter as? FullScreenAdapter2?)?.submitList(photos)
     }
 }

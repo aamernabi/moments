@@ -23,7 +23,6 @@ import java.lang.Exception
 import java.lang.RuntimeException
 import javax.inject.Inject
 import javax.inject.Provider
-import javax.inject.Singleton
 
 @Suppress("UNCHECKED_CAST")
 @FeatureScope

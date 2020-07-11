@@ -33,6 +33,7 @@ import com.bumptech.glide.request.target.Target
 import com.google.firebase.analytics.FirebaseAnalytics
 import kotlinx.android.synthetic.main.full_screen_view.view.*
 
+@Deprecated("FullScreenAdapter is deprecated", replaceWith = ReplaceWith("FullScreenAdapter2"))
 class FullScreenAdapter : PagerAdapter() {
 
     private val photos: MutableList<Photo> = mutableListOf()
@@ -42,7 +43,8 @@ class FullScreenAdapter : PagerAdapter() {
     override fun getCount() = photos.size
 
     override fun instantiateItem(container: ViewGroup, position: Int): Any {
-        val view = LayoutInflater.from(container.context).inflate(R.layout.full_screen_view, container, false)
+        val view = LayoutInflater.from(container.context)
+            .inflate(R.layout.full_screen_view, container, false)
 
         view.progress_bar.visibility = View.VISIBLE
 
@@ -60,13 +62,24 @@ class FullScreenAdapter : PagerAdapter() {
         Glide.with(view)
             .load(selectedPhoto.urls.regular)
             .listener(object : RequestListener<Drawable> {
-                override fun onLoadFailed(e: GlideException?, model: Any?, target: Target<Drawable>?, isFirstResource: Boolean): Boolean {
+                override fun onLoadFailed(
+                    e: GlideException?,
+                    model: Any?,
+                    target: Target<Drawable>?,
+                    isFirstResource: Boolean
+                ): Boolean {
                     view.progress_bar.setImageResource(R.drawable.ic_image_placeholder)
                     // view.progress_bar.visibility = View.GONE
                     return false
                 }
 
-                override fun onResourceReady(resource: Drawable?, model: Any?, target: Target<Drawable>?, dataSource: DataSource?, isFirstResource: Boolean): Boolean {
+                override fun onResourceReady(
+                    resource: Drawable?,
+                    model: Any?,
+                    target: Target<Drawable>?,
+                    dataSource: DataSource?,
+                    isFirstResource: Boolean
+                ): Boolean {
                     view.progress_bar.visibility = View.GONE
                     return false
                 }
