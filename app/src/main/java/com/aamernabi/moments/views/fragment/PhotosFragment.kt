@@ -21,14 +21,16 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
-import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
+import androidx.lifecycle.observe
 import androidx.navigation.Navigation
+import androidx.paging.PagedList
 import com.aamernabi.core.dagger.Injectable
 import com.aamernabi.core.data.State
 import com.aamernabi.core.utils.delegates.viewBinding
 import com.aamernabi.moments.R
 import com.aamernabi.moments.databinding.FragmentPhotosBinding
+import com.aamernabi.moments.datasource.remote.photos.Photo
 import com.aamernabi.moments.utils.Errors
 import com.aamernabi.moments.utils.OnItemClickListener
 import com.aamernabi.moments.viewmodels.PhotosViewModel
@@ -63,26 +65,19 @@ class PhotosFragment : Fragment(), OnItemClickListener,
                 ViewModelProvider(activity, viewModelFactory).get(PhotosViewModel::class.java)
         }
 
-        attachPhotosObservers(adapter)
-        attachStateObserver()
+        viewModel.photos.observe(viewLifecycleOwner, ::onPhotos)
+        viewModel.photosState.observe(requireActivity(), ::onPhotosState)
     }
 
-    private fun attachPhotosObservers(adapter: PhotoAdapter) {
-        viewModel.photos.observe(viewLifecycleOwner, Observer {
-            it ?: return@Observer
-            adapter.submitList(it)
-        })
+    private fun onPhotos(photos: PagedList<Photo>) {
+        val adapter = binding.recyclerView.adapter as? PhotoAdapter?
+        adapter?.submitList(photos)
     }
 
-    private fun attachStateObserver() {
-        val activity = activity ?: return
-        viewModel.photosState.observe(activity, Observer { state ->
-            when (state) {
-                is State.Loading -> showProgress()
-                is State.Success -> onSuccess()
-                is State.Error -> onError(state.t, state.code)
-            }
-        })
+    private fun onPhotosState(state: State<Unit>) = when (state) {
+        is State.Loading -> showProgress()
+        is State.Success -> onSuccess()
+        is State.Error -> onError(state.t, state.code)
     }
 
     override fun onItemClick(index: Int) {

@@ -18,10 +18,7 @@ package com.aamernabi.moments.views
 
 import android.app.DownloadManager
 import android.app.DownloadManager.Request.VISIBILITY_VISIBLE
-import android.content.BroadcastReceiver
-import android.content.Context
-import android.content.Intent
-import android.content.IntentFilter
+import android.content.*
 import android.net.Uri
 import android.os.Build
 import android.os.Bundle
@@ -52,6 +49,9 @@ class MainActivity : AppCompatActivity(), HasAndroidInjector {
     lateinit var dispatchingAndroidInjector: DispatchingAndroidInjector<Any>
 
     @Inject
+    lateinit var preferences: SharedPreferences
+
+    @Inject
     lateinit var factory: ViewModelProvider.Factory
     private val viewModel by viewModels<PhotosViewModel> { factory }
 
@@ -73,6 +73,8 @@ class MainActivity : AppCompatActivity(), HasAndroidInjector {
         setContentView(bindings.root)
         setSupportActionBar(bindings.toolbar)
 
+        setTheme()
+
         bindings.toolbar.setBackgroundResource(R.drawable.bg_app_bar)
         viewModel.downloadImage.observe(this, ::onDownloadImage)
 
@@ -81,6 +83,11 @@ class MainActivity : AppCompatActivity(), HasAndroidInjector {
                 downloadReceiver,
                 IntentFilter(DownloadManager.ACTION_DOWNLOAD_COMPLETE)
             )
+    }
+
+    private fun setTheme() {
+        val mode = preferences.getInt("theme_mode", AppCompatDelegate.MODE_NIGHT_NO)
+        AppCompatDelegate.setDefaultNightMode(mode)
     }
 
     override fun onDestroy() {
@@ -101,15 +108,12 @@ class MainActivity : AppCompatActivity(), HasAndroidInjector {
     override fun onOptionsItemSelected(item: MenuItem): Boolean {
         return when (item.itemId) {
             R.id.action_dark_theme -> {
+                preferences.edit().putInt("theme_mode", AppCompatDelegate.MODE_NIGHT_YES).apply()
                 AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_YES)
                 true
             }
             R.id.action_light_theme -> {
-                /*showMaterialDialog(
-                    this,
-                    "Verify your identity",
-                    "Login using fingerprint authentication."
-                )*/
+                preferences.edit().putInt("theme_mode", AppCompatDelegate.MODE_NIGHT_NO).apply()
                 AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_NO)
                 true
             }

@@ -25,6 +25,7 @@ import androidx.fragment.app.FragmentActivity
 import androidx.fragment.app.FragmentManager
 import com.aamernabi.core.dagger.DaggerCoreComponent
 import com.aamernabi.core.dagger.Injectable
+import com.aamernabi.core.dagger.SharedPreferencesModule
 import com.aamernabi.moments.App
 import dagger.android.AndroidInjection
 import dagger.android.HasAndroidInjector
@@ -36,6 +37,9 @@ object AppInjector {
         DaggerAppComponent.builder()
             .application(app)
             .coreComponent(DaggerCoreComponent.create())
+            .sharedPreferencesModule(
+                SharedPreferencesModule(app, app.packageName)
+            )
             .build()
             .inject(app)
 

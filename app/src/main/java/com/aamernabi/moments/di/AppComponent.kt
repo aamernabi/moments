@@ -18,6 +18,7 @@ package com.aamernabi.moments.di
 
 import android.app.Application
 import com.aamernabi.core.dagger.CoreComponent
+import com.aamernabi.core.dagger.SharedPreferencesModule
 import com.aamernabi.core.dagger.scopes.FeatureScope
 import com.aamernabi.moments.App
 import dagger.BindsInstance
@@ -31,7 +32,8 @@ import dagger.android.AndroidInjector
         AndroidInjectionModule::class,
         AppModule::class,
         ActivityBuilderModule::class,
-        GlideBuilderModule::class
+        GlideBuilderModule::class,
+        SharedPreferencesModule::class
     ],
     dependencies = [CoreComponent::class]
 )
@@ -43,6 +45,7 @@ interface AppComponent : AndroidInjector<App> {
         @BindsInstance
         fun application(application: Application): Builder
         fun coreComponent(module: CoreComponent): Builder
+        fun sharedPreferencesModule(module: SharedPreferencesModule): Builder
         fun build(): AppComponent
     }
 
