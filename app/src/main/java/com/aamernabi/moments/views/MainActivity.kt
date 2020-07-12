@@ -18,7 +18,11 @@ package com.aamernabi.moments.views
 
 import android.app.DownloadManager
 import android.app.DownloadManager.Request.VISIBILITY_VISIBLE
-import android.content.*
+import android.content.BroadcastReceiver
+import android.content.Context
+import android.content.Intent
+import android.content.IntentFilter
+import android.content.SharedPreferences
 import android.net.Uri
 import android.os.Build
 import android.os.Bundle
