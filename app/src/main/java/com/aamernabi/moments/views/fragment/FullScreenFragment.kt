@@ -59,7 +59,7 @@ class FullScreenFragment : Fragment(), Injectable {
 
         binding.viewPager.adapter = FullScreenAdapter2()
         viewModel.photos.value?.let { submitList(it) }
-        binding.viewPager.currentItem = viewModel.currentIndex
+        binding.viewPager.setCurrentItem(viewModel.currentIndex, false)
 
         viewModel.photos.observe(viewLifecycleOwner, ::submitList)
     }
