@@ -1,20 +1,19 @@
-apply plugin: 'com.android.application'
-apply plugin: 'kotlin-android'
-apply plugin: 'kotlin-android-extensions'
-apply plugin: 'kotlin-kapt'
-apply plugin: 'com.google.firebase.crashlytics'
-
-apply from: '../shared_dep.gradle'
-apply from: '../shared_test_dep.gradle'
+plugins {
+    id 'com.android.application'
+    id 'kotlin-android'
+    id 'kotlin-kapt'
+    id 'kotlin-parcelize'
+    id 'com.google.firebase.crashlytics'
+}
 
 android {
-    compileSdkVersion compile_sdk
+    compileSdkVersion sdk.compile_sdk
     defaultConfig {
-        applicationId app_id
-        minSdkVersion min_sdk
-        targetSdkVersion target_sdk
-        versionCode app_version_code
-        versionName app_version_name
+        applicationId sdk.app_id
+        minSdkVersion sdk.min_sdk
+        targetSdkVersion sdk.target_sdk
+        versionCode sdk.app_version_code
+        versionName sdk.app_version_name
         testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
 
         buildConfigField 'String', 'UNSPLASH_API_KEY', "\"${unsplash_api_key}\""
@@ -36,9 +35,6 @@ android {
     kotlinOptions {
         jvmTarget = JavaVersion.VERSION_1_8.toString()
     }
-    androidExtensions {
-        experimental = true
-    }
     viewBinding {
         enabled = true
     }
@@ -50,6 +46,13 @@ android {
 dependencies {
     implementation project(':core')
     implementation fileTree(dir: 'libs', include: ['*.jar'])
+
+    implementation "androidx.core:core-ktx:$v.ktx"
+    implementation "androidx.fragment:fragment-ktx:$v.ktx_fragment"
+    implementation "androidx.activity:activity-ktx:$v.ktx_activity"
+    implementation "androidx.lifecycle:lifecycle-common-java8:$v.lifecycle"
+    implementation "androidx.lifecycle:lifecycle-livedata-ktx:$v.lifecycle"
+    implementation "androidx.lifecycle:lifecycle-viewmodel-ktx:$v.lifecycle"
     implementation "androidx.constraintlayout:constraintlayout:$v.constraint_layout"
 
     implementation "androidx.paging:paging-runtime-ktx:$v.paging_runtime"
@@ -73,10 +76,14 @@ dependencies {
 
     implementation "org.jetbrains.kotlinx:kotlinx-coroutines-core:$v.coroutines"
     implementation "org.jetbrains.kotlinx:kotlinx-coroutines-android:$v.coroutines"
+
+    implementation "com.squareup.retrofit2:retrofit:$v.retrofit"
+    implementation "com.squareup.retrofit2:converter-moshi:$v.retrofit"
     implementation "com.jakewharton.retrofit:retrofit2-kotlin-coroutines-adapter:$v.retrofit_coroutines_adapter"
 
     implementation "com.squareup.okhttp3:logging-interceptor:$v.okhttp_interceptor"
 
+    implementation "com.google.dagger:dagger:$v.dagger"
     implementation "com.google.dagger:dagger-android:$v.dagger"
     implementation "com.google.dagger:dagger-android-support:$v.dagger"
     kapt "com.google.dagger:dagger-compiler:$v.dagger"
@@ -85,6 +92,10 @@ dependencies {
     implementation "com.airbnb.android:lottie:$v.lottie"
     implementation "com.alexvasilkov:gesture-views:$v.gesture_views"
     implementation "androidx.viewpager2:viewpager2:$v.viewpager2"
+
+    testImplementation "junit:junit:$v.junit"
+    androidTestImplementation "androidx.test.ext:junit:$v.ext_junit"
+    androidTestImplementation "androidx.test.espresso:espresso-core:$v.espresso"
 }
 
 apply plugin: 'com.google.gms.google-services'

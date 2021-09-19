@@ -30,7 +30,6 @@ import com.bumptech.glide.load.DataSource
 import com.bumptech.glide.load.engine.GlideException
 import com.bumptech.glide.request.RequestListener
 import com.bumptech.glide.request.target.Target
-import kotlinx.android.synthetic.main.full_screen_view.view.*
 
 class FullScreenAdapter2 : ListAdapter<Photo, FullScreenAdapter2.ViewHolder>(PhotoDiffCallback()) {
 

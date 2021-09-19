@@ -1,17 +1,16 @@
-apply plugin: 'com.android.library'
-apply plugin: 'kotlin-android'
-apply plugin: 'kotlin-android-extensions'
-apply plugin: 'kotlin-kapt'
-
-apply from: '../shared_dep.gradle'
-apply from: '../shared_test_dep.gradle'
+plugins {
+    id 'com.android.library'
+    id 'kotlin-android'
+    id 'kotlin-kapt'
+    id 'kotlin-parcelize'
+}
 
 android {
-    compileSdkVersion compile_sdk
+    compileSdkVersion sdk.compile_sdk
 
     defaultConfig {
-        minSdkVersion min_sdk
-        targetSdkVersion target_sdk
+        minSdkVersion sdk.min_sdk
+        targetSdkVersion sdk.target_sdk
 
         testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
         consumerProguardFiles 'consumer-rules.pro'
@@ -36,7 +35,21 @@ android {
 
 dependencies {
     implementation fileTree(dir: 'libs', include: ['*.jar'])
+
     implementation "androidx.appcompat:appcompat:$v.appcompat"
-    implementation "com.squareup.okhttp3:logging-interceptor:$v.okhttp_interceptor"
+    implementation "androidx.core:core-ktx:$v.ktx"
+    implementation "androidx.fragment:fragment-ktx:$v.ktx_fragment"
+    implementation "androidx.activity:activity-ktx:$v.ktx_activity"
+    implementation "androidx.lifecycle:lifecycle-common-java8:$v.lifecycle"
+    implementation "androidx.lifecycle:lifecycle-livedata-ktx:$v.lifecycle"
+    implementation "androidx.lifecycle:lifecycle-viewmodel-ktx:$v.lifecycle"
+    implementation "com.google.dagger:dagger:$v.dagger"
     kapt "com.google.dagger:dagger-compiler:$v.dagger"
+    implementation "com.squareup.retrofit2:retrofit:$v.retrofit"
+    implementation "com.squareup.retrofit2:converter-moshi:$v.retrofit"
+    implementation "com.squareup.okhttp3:logging-interceptor:$v.okhttp_interceptor"
+
+    testImplementation "junit:junit:$v.junit"
+    androidTestImplementation "androidx.test.ext:junit:$v.ext_junit"
+    androidTestImplementation "androidx.test.espresso:espresso-core:$v.espresso"
 }

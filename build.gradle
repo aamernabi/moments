@@ -4,24 +4,24 @@ buildscript {
     apply from: 'versions.gradle'
 
     ext {
-        app_id = 'com.aamernabi.moments'
-        compile_sdk = 30
-        min_sdk = 21
-        target_sdk = 30
-        app_version_code = 1
-        app_version_name = '0.0.1'
-
         agp = '7.0.2'
         kotlin = '1.5.30'
         google_services = '4.3.2'
         firebase_crashlytics = '2.7.1'
         ktlint = '0.36.0'
     }
+    ext.sdk = [
+            app_id          : 'com.aamernabi.moments',
+            compile_sdk     : 30,
+            min_sdk         : 21,
+            target_sdk      : 30,
+            app_version_code: 1,
+            app_version_name: '0.0.1'
+    ]
 
     repositories {
         google()
-        jcenter()
-        maven { url "https://plugins.gradle.org/m2/" }
+        mavenCentral()
     }
     dependencies {
         classpath "com.android.tools.build:gradle:$agp"
@@ -32,29 +32,12 @@ buildscript {
 }
 
 plugins {
-    id 'com.diffplug.gradle.spotless' version '3.28.0'
     id "com.github.ben-manes.versions" version '0.39.0'
 }
 
 allprojects {
     repositories {
         google()
-        jcenter()
-    }
-}
-
-subprojects {
-    apply plugin: 'com.diffplug.gradle.spotless'
-    spotless {
-        kotlin {
-            target "**/*.kt"
-            ktlint(ktlint)
-            licenseHeaderFile project.rootProject.file('scripts/copyright.kt')
-        }
-        groovyGradle {
-            target '**/*.gradle'
-            greclipse().configFile(project.rootProject.file('scripts/greclipse.properties'))
-            paddedCell() // to avoid cyclic ambiguities
-        }
+        mavenCentral()
     }
 }

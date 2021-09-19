@@ -1,5 +1,0 @@
-dependencies {
-    testImplementation "junit:junit:$v.junit"
-    androidTestImplementation "androidx.test.ext:junit:$v.ext_junit"
-    androidTestImplementation "androidx.test.espresso:espresso-core:$v.espresso"
-}

@@ -23,7 +23,6 @@ import android.view.ViewGroup
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.activityViewModels
 import androidx.lifecycle.ViewModelProvider
-import androidx.lifecycle.observe
 import com.aamernabi.core.dagger.Injectable
 import com.aamernabi.core.utils.delegates.viewBinding
 import com.aamernabi.moments.R
@@ -33,7 +32,6 @@ import com.aamernabi.moments.viewmodels.PhotosViewModel
 import com.aamernabi.moments.views.MainActivity
 import com.aamernabi.moments.views.adapter.FullScreenAdapter2
 import javax.inject.Inject
-import kotlinx.android.synthetic.main.fragment_full_screen.*
 
 class FullScreenFragment : Fragment(), Injectable {
 
@@ -54,8 +52,8 @@ class FullScreenFragment : Fragment(), Injectable {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
-        fab_download.show()
-        fab_download.setOnClickListener { downloadImage() }
+        binding.fabDownload.show()
+        binding.fabDownload.setOnClickListener { downloadImage() }
 
         binding.viewPager.adapter = FullScreenAdapter2()
         viewModel.photos.value?.let { submitList(it) }
