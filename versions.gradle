@@ -1,42 +1,42 @@
 def versions = [:]
 
-versions.compile_sdk = 29
+versions.compile_sdk = 30
 versions.min_sdk = 21
-versions.target_sdk = 29
+versions.target_sdk = 30
 
-versions.fabric = '1.31.2'
 versions.google_services = '4.3.2'
-versions.gradle = '3.6.3'
-versions.kotlin = '1.3.71'
-versions.spotless = '3.28.1'
+versions.gradle = '7.0.2'
+versions.kotlin = '1.5.30'
 versions.ktlint = '0.36.0'
 versions.gradle_versions_plugin = '0.28.0'
+versions.firebase_crash_gradle = '2.7.1'
 
-versions.appcompat = '1.1.0'
-versions.constraint_layout = '2.0.0-beta8'
-versions.coroutines = '1.3.7'
+versions.appcompat = '1.3.1'
+versions.constraint_layout = '2.1.0'
+versions.coroutines = '1.5.2'
 versions.crashlytics = '2.10.1'
-versions.dagger = '2.27'
-versions.firebase = '17.4.4'
-versions.gesture_views ='2.6.0'
-versions.glide = '4.11.0'
-versions.legacy_support_v4 = '1.0.0'
-versions.lifecycle = '2.2.0'
-versions.okhttp = '4.6.0'
-versions.lottie = '3.4.0'
+versions.dagger = '2.38.1'
+versions.firebase_crashlytics = '18.2.1'
+versions.firebase_analytics = '19.0.1'
+versions.gesture_views = '2.8.2'
+versions.glide = '4.12.0'
+versions.lifecycle = '2.3.1'
+versions.lifecycle_ext = '2.2.0'
+versions.okhttp_interceptor = '4.6.0'
+versions.lottie = '4.1.0'
 versions.ktx = '1.2.0'
 versions.ktx_activity = '1.1.0'
 versions.ktx_fragment = '1.2.5'
-versions.material = '1.3.0-alpha01'
-versions.navigation = '2.3.0'
-versions.paging_runtime = '2.1.2'
-versions.retrofit = '2.8.1'
+versions.material = '1.4.0'
+versions.navigation = '2.3.5'
+versions.paging_runtime = '3.0.1'
+versions.retrofit = '2.9.0'
 versions.retrofit_coroutines_adapter = '0.9.2'
 versions.viewpager2 = '1.0.0'
 
 versions.espresso = '3.2.0'
 versions.ext_junit = '1.1.1'
-versions.junit = '4.13'
+versions.junit = '4.13.2'
 
 
 ext.versions = versions
