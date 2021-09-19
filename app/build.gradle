@@ -48,31 +48,25 @@ dependencies {
     implementation fileTree(dir: 'libs', include: ['*.jar'])
 
     implementation "androidx.core:core-ktx:$v.ktx"
-    implementation "androidx.fragment:fragment-ktx:$v.ktx_fragment"
-    implementation "androidx.activity:activity-ktx:$v.ktx_activity"
-    implementation "androidx.lifecycle:lifecycle-common-java8:$v.lifecycle"
-    implementation "androidx.lifecycle:lifecycle-livedata-ktx:$v.lifecycle"
-    implementation "androidx.lifecycle:lifecycle-viewmodel-ktx:$v.lifecycle"
-    implementation "androidx.constraintlayout:constraintlayout:$v.constraint_layout"
-
-    implementation "androidx.paging:paging-runtime-ktx:$v.paging_runtime"
-
     implementation "androidx.appcompat:appcompat:$v.appcompat"
     implementation "com.google.android.material:material:$v.material"
+    implementation "androidx.constraintlayout:constraintlayout:$v.constraint_layout"
 
-    implementation "com.github.bumptech.glide:glide:$v.glide"
-    implementation "com.google.firebase:firebase-crashlytics:$v.firebase_crashlytics"
-    implementation "com.google.firebase:firebase-analytics:$v.firebase_analytics"
-    kapt "com.github.bumptech.glide:compiler:$v.glide"
-    implementation "com.github.bumptech.glide:okhttp3-integration:$v.glide"
-
-    implementation "androidx.lifecycle:lifecycle-extensions:$v.lifecycle_ext"
-    implementation "androidx.lifecycle:lifecycle-viewmodel-ktx:$v.lifecycle"
+    implementation "androidx.fragment:fragment-ktx:$v.ktx_fragment"
+    implementation "androidx.activity:activity-ktx:$v.ktx_activity"
     implementation "androidx.lifecycle:lifecycle-livedata-ktx:$v.lifecycle"
+    implementation "androidx.lifecycle:lifecycle-viewmodel-ktx:$v.lifecycle"
+    implementation "androidx.lifecycle:lifecycle-extensions:$v.lifecycle_ext"
     implementation "androidx.lifecycle:lifecycle-runtime-ktx:$v.lifecycle"
+    implementation "androidx.paging:paging-runtime-ktx:$v.paging_runtime"
+    implementation "androidx.viewpager2:viewpager2:$v.viewpager2"
 
     implementation "androidx.navigation:navigation-fragment-ktx:$v.navigation"
     implementation "androidx.navigation:navigation-ui-ktx:$v.navigation"
+
+    implementation "com.github.bumptech.glide:glide:$v.glide"
+    kapt "com.github.bumptech.glide:compiler:$v.glide"
+    implementation "com.github.bumptech.glide:okhttp3-integration:$v.glide"
 
     implementation "org.jetbrains.kotlinx:kotlinx-coroutines-core:$v.coroutines"
     implementation "org.jetbrains.kotlinx:kotlinx-coroutines-android:$v.coroutines"
@@ -80,7 +74,6 @@ dependencies {
     implementation "com.squareup.retrofit2:retrofit:$v.retrofit"
     implementation "com.squareup.retrofit2:converter-moshi:$v.retrofit"
     implementation "com.jakewharton.retrofit:retrofit2-kotlin-coroutines-adapter:$v.retrofit_coroutines_adapter"
-
     implementation "com.squareup.okhttp3:logging-interceptor:$v.okhttp_interceptor"
 
     implementation "com.google.dagger:dagger:$v.dagger"
@@ -91,7 +84,9 @@ dependencies {
 
     implementation "com.airbnb.android:lottie:$v.lottie"
     implementation "com.alexvasilkov:gesture-views:$v.gesture_views"
-    implementation "androidx.viewpager2:viewpager2:$v.viewpager2"
+
+    implementation "com.google.firebase:firebase-crashlytics:$v.firebase_crashlytics"
+    implementation "com.google.firebase:firebase-analytics:$v.firebase_analytics"
 
     testImplementation "junit:junit:$v.junit"
     androidTestImplementation "androidx.test.ext:junit:$v.ext_junit"
