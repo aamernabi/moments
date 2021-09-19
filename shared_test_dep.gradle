@@ -1,5 +1,5 @@
 dependencies {
-    testImplementation "junit:junit:$versions.junit"
-    androidTestImplementation "androidx.test.ext:junit:$versions.ext_junit"
-    androidTestImplementation "androidx.test.espresso:espresso-core:$versions.espresso"
+    testImplementation "junit:junit:$v.junit"
+    androidTestImplementation "androidx.test.ext:junit:$v.ext_junit"
+    androidTestImplementation "androidx.test.espresso:espresso-core:$v.espresso"
 }

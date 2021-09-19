@@ -1,42 +1,33 @@
-def versions = [:]
+def v = [:]
 
-versions.compile_sdk = 30
-versions.min_sdk = 21
-versions.target_sdk = 30
+v.gradle_versions_plugin = '0.28.0'
 
-versions.google_services = '4.3.2'
-versions.gradle = '7.0.2'
-versions.kotlin = '1.5.30'
-versions.ktlint = '0.36.0'
-versions.gradle_versions_plugin = '0.28.0'
-versions.firebase_crash_gradle = '2.7.1'
+v.appcompat = '1.3.1'
+v.constraint_layout = '2.1.0'
+v.coroutines = '1.5.2'
+v.crashlytics = '2.10.1'
+v.dagger = '2.38.1'
+v.firebase_crashlytics = '18.2.1'
+v.firebase_analytics = '19.0.1'
+v.gesture_views = '2.8.2'
+v.glide = '4.12.0'
+v.lifecycle = '2.3.1'
+v.lifecycle_ext = '2.2.0'
+v.okhttp_interceptor = '4.6.0'
+v.lottie = '4.1.0'
+v.ktx = '1.2.0'
+v.ktx_activity = '1.1.0'
+v.ktx_fragment = '1.2.5'
+v.material = '1.4.0'
+v.navigation = '2.3.5'
+v.paging_runtime = '3.0.1'
+v.retrofit = '2.9.0'
+v.retrofit_coroutines_adapter = '0.9.2'
+v.viewpager2 = '1.0.0'
 
-versions.appcompat = '1.3.1'
-versions.constraint_layout = '2.1.0'
-versions.coroutines = '1.5.2'
-versions.crashlytics = '2.10.1'
-versions.dagger = '2.38.1'
-versions.firebase_crashlytics = '18.2.1'
-versions.firebase_analytics = '19.0.1'
-versions.gesture_views = '2.8.2'
-versions.glide = '4.12.0'
-versions.lifecycle = '2.3.1'
-versions.lifecycle_ext = '2.2.0'
-versions.okhttp_interceptor = '4.6.0'
-versions.lottie = '4.1.0'
-versions.ktx = '1.2.0'
-versions.ktx_activity = '1.1.0'
-versions.ktx_fragment = '1.2.5'
-versions.material = '1.4.0'
-versions.navigation = '2.3.5'
-versions.paging_runtime = '3.0.1'
-versions.retrofit = '2.9.0'
-versions.retrofit_coroutines_adapter = '0.9.2'
-versions.viewpager2 = '1.0.0'
-
-versions.espresso = '3.2.0'
-versions.ext_junit = '1.1.1'
-versions.junit = '4.13.2'
+v.espresso = '3.2.0'
+v.ext_junit = '1.1.1'
+v.junit = '4.13.2'
 
 
-ext.versions = versions
+ext.v = v

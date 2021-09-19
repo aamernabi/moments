@@ -3,16 +3,31 @@
 buildscript {
     apply from: 'versions.gradle'
 
+    ext {
+        app_id = 'com.aamernabi.moments'
+        compile_sdk = 30
+        min_sdk = 21
+        target_sdk = 30
+        app_version_code = 1
+        app_version_name = '0.0.1'
+
+        agp = '7.0.2'
+        kotlin = '1.5.30'
+        google_services = '4.3.2'
+        firebase_crashlytics = '2.7.1'
+        ktlint = '0.36.0'
+    }
+
     repositories {
         google()
         jcenter()
         maven { url "https://plugins.gradle.org/m2/" }
     }
     dependencies {
-        classpath "com.android.tools.build:gradle:$versions.gradle"
-        classpath "org.jetbrains.kotlin:kotlin-gradle-plugin:$versions.kotlin"
-        classpath "com.google.gms:google-services:$versions.google_services"
-        classpath "com.google.firebase:firebase-crashlytics-gradle:$versions.firebase_crash_gradle"
+        classpath "com.android.tools.build:gradle:$agp"
+        classpath "org.jetbrains.kotlin:kotlin-gradle-plugin:$kotlin"
+        classpath "com.google.gms:google-services:$google_services"
+        classpath "com.google.firebase:firebase-crashlytics-gradle:$firebase_crashlytics"
     }
 }
 
@@ -33,7 +48,7 @@ subprojects {
     spotless {
         kotlin {
             target "**/*.kt"
-            ktlint(versions.ktlint)
+            ktlint(ktlint)
             licenseHeaderFile project.rootProject.file('scripts/copyright.kt')
         }
         groovyGradle {

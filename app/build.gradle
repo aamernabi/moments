@@ -8,13 +8,13 @@ apply from: '../shared_dep.gradle'
 apply from: '../shared_test_dep.gradle'
 
 android {
-    compileSdkVersion versions.compile_sdk
+    compileSdkVersion compile_sdk
     defaultConfig {
-        applicationId "com.aamernabi.moments"
-        minSdkVersion versions.min_sdk
-        targetSdkVersion versions.target_sdk
-        versionCode 1
-        versionName "0.0.1"
+        applicationId app_id
+        minSdkVersion min_sdk
+        targetSdkVersion target_sdk
+        versionCode app_version_code
+        versionName app_version_name
         testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
 
         buildConfigField 'String', 'UNSPLASH_API_KEY', "\"${unsplash_api_key}\""
@@ -50,41 +50,41 @@ android {
 dependencies {
     implementation project(':core')
     implementation fileTree(dir: 'libs', include: ['*.jar'])
-    implementation "androidx.constraintlayout:constraintlayout:$versions.constraint_layout"
+    implementation "androidx.constraintlayout:constraintlayout:$v.constraint_layout"
 
-    implementation "androidx.paging:paging-runtime-ktx:$versions.paging_runtime"
+    implementation "androidx.paging:paging-runtime-ktx:$v.paging_runtime"
 
-    implementation "androidx.appcompat:appcompat:$versions.appcompat"
-    implementation "com.google.android.material:material:$versions.material"
+    implementation "androidx.appcompat:appcompat:$v.appcompat"
+    implementation "com.google.android.material:material:$v.material"
 
-    implementation "com.github.bumptech.glide:glide:$versions.glide"
-    implementation "com.google.firebase:firebase-crashlytics:$versions.firebase_crashlytics"
-    implementation "com.google.firebase:firebase-analytics:$versions.firebase_analytics"
-    kapt "com.github.bumptech.glide:compiler:$versions.glide"
-    implementation "com.github.bumptech.glide:okhttp3-integration:$versions.glide"
+    implementation "com.github.bumptech.glide:glide:$v.glide"
+    implementation "com.google.firebase:firebase-crashlytics:$v.firebase_crashlytics"
+    implementation "com.google.firebase:firebase-analytics:$v.firebase_analytics"
+    kapt "com.github.bumptech.glide:compiler:$v.glide"
+    implementation "com.github.bumptech.glide:okhttp3-integration:$v.glide"
 
-    implementation "androidx.lifecycle:lifecycle-extensions:$versions.lifecycle_ext"
-    implementation "androidx.lifecycle:lifecycle-viewmodel-ktx:$versions.lifecycle"
-    implementation "androidx.lifecycle:lifecycle-livedata-ktx:$versions.lifecycle"
-    implementation "androidx.lifecycle:lifecycle-runtime-ktx:$versions.lifecycle"
+    implementation "androidx.lifecycle:lifecycle-extensions:$v.lifecycle_ext"
+    implementation "androidx.lifecycle:lifecycle-viewmodel-ktx:$v.lifecycle"
+    implementation "androidx.lifecycle:lifecycle-livedata-ktx:$v.lifecycle"
+    implementation "androidx.lifecycle:lifecycle-runtime-ktx:$v.lifecycle"
 
-    implementation "androidx.navigation:navigation-fragment-ktx:$versions.navigation"
-    implementation "androidx.navigation:navigation-ui-ktx:$versions.navigation"
+    implementation "androidx.navigation:navigation-fragment-ktx:$v.navigation"
+    implementation "androidx.navigation:navigation-ui-ktx:$v.navigation"
 
-    implementation "org.jetbrains.kotlinx:kotlinx-coroutines-core:$versions.coroutines"
-    implementation "org.jetbrains.kotlinx:kotlinx-coroutines-android:$versions.coroutines"
-    implementation "com.jakewharton.retrofit:retrofit2-kotlin-coroutines-adapter:$versions.retrofit_coroutines_adapter"
+    implementation "org.jetbrains.kotlinx:kotlinx-coroutines-core:$v.coroutines"
+    implementation "org.jetbrains.kotlinx:kotlinx-coroutines-android:$v.coroutines"
+    implementation "com.jakewharton.retrofit:retrofit2-kotlin-coroutines-adapter:$v.retrofit_coroutines_adapter"
 
-    implementation "com.squareup.okhttp3:logging-interceptor:$versions.okhttp_interceptor"
+    implementation "com.squareup.okhttp3:logging-interceptor:$v.okhttp_interceptor"
 
-    implementation "com.google.dagger:dagger-android:$versions.dagger"
-    implementation "com.google.dagger:dagger-android-support:$versions.dagger"
-    kapt "com.google.dagger:dagger-compiler:$versions.dagger"
-    kapt "com.google.dagger:dagger-android-processor:$versions.dagger"
+    implementation "com.google.dagger:dagger-android:$v.dagger"
+    implementation "com.google.dagger:dagger-android-support:$v.dagger"
+    kapt "com.google.dagger:dagger-compiler:$v.dagger"
+    kapt "com.google.dagger:dagger-android-processor:$v.dagger"
 
-    implementation "com.airbnb.android:lottie:$versions.lottie"
-    implementation "com.alexvasilkov:gesture-views:$versions.gesture_views"
-    implementation "androidx.viewpager2:viewpager2:$versions.viewpager2"
+    implementation "com.airbnb.android:lottie:$v.lottie"
+    implementation "com.alexvasilkov:gesture-views:$v.gesture_views"
+    implementation "androidx.viewpager2:viewpager2:$v.viewpager2"
 }
 
 apply plugin: 'com.google.gms.google-services'
