@@ -33,6 +33,7 @@ class PhotosService @Inject constructor(
     }
 
     companion object {
-        private const val PER_PAGE = 20
+        const val INITIAL_PAGE_INDEX = 1
+        const val PER_PAGE = 20
     }
 }

@@ -1,66 +1,44 @@
-/*
- * Copyright 2020 aamernabi
- *
- * Licensed under the Apache License, Version 2.0 (the "License");
- * you may not use this file except in compliance with the License.
- * You may obtain a copy of the License at
- *
- *     http://www.apache.org/licenses/LICENSE-2.0
- *
- * Unless required by applicable law or agreed to in writing, software
- * distributed under the License is distributed on an "AS IS" BASIS,
- * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
- * See the License for the specific language governing permissions and
- * limitations under the License.
- */
-
 package com.aamernabi.moments.datasource
 
-import androidx.paging.DataSource
-import androidx.paging.PageKeyedDataSource
+import androidx.paging.PagingSource
+import androidx.paging.PagingState
 import com.aamernabi.moments.datasource.remote.photos.Photo
-import kotlin.reflect.KSuspendFunction1
-import kotlinx.coroutines.CoroutineScope
-import kotlinx.coroutines.cancel
-import kotlinx.coroutines.launch
+import com.aamernabi.moments.datasource.remote.photos.PhotosService
+import com.aamernabi.moments.datasource.remote.photos.PhotosService.Companion.INITIAL_PAGE_INDEX
+import com.aamernabi.moments.datasource.remote.photos.PhotosService.Companion.PER_PAGE
+import retrofit2.HttpException
+import java.io.IOException
 
 class PhotosRemoteDataSource(
-    private val scope: CoroutineScope,
-    private val fetchPhotos: KSuspendFunction1<Int, List<Photo>>
-) : PageKeyedDataSource<Int, Photo>() {
+    private val service: PhotosService,
+) : PagingSource<Int, Photo>() {
 
-    override fun loadInitial(
-        params: LoadInitialParams<Int>,
-        callback: LoadInitialCallback<Int, Photo>
-    ) {
-        scope.launch {
-            val photos = fetchPhotos(1)
-            callback.onResult(photos, null, 2)
+    override suspend fun load(params: LoadParams<Int>): LoadResult<Int, Photo> {
+        val pageIndex = params.key ?: INITIAL_PAGE_INDEX
+
+        return try {
+            val photos = service.getPhotos(pageIndex)
+            val prevKey = if (pageIndex == INITIAL_PAGE_INDEX) null else pageIndex - 1
+            val nextKey = if (photos.isNotEmpty() && photos.size >= PER_PAGE) {
+                pageIndex + (params.loadSize / PER_PAGE)
+            } else null
+
+            LoadResult.Page(
+                data = photos,
+                prevKey = prevKey,
+                nextKey = nextKey
+            )
+        } catch (e: IOException) {
+            LoadResult.Error(e)
+        } catch (e: HttpException) {
+            LoadResult.Error(e)
         }
     }
 
-    override fun loadAfter(params: LoadParams<Int>, callback: LoadCallback<Int, Photo>) {
-        scope.launch {
-            val page = params.key
-            val photos = fetchPhotos(page)
-            callback.onResult(photos, page + 1)
-        }
-    }
-
-    override fun loadBefore(params: LoadParams<Int>, callback: LoadCallback<Int, Photo>) {
-    }
-
-    override fun invalidate() {
-        super.invalidate()
-        scope.cancel()
-    }
-
-    class Factory(
-        private val scope: CoroutineScope,
-        private val fetchPhotos: KSuspendFunction1<Int, List<Photo>>
-    ) : DataSource.Factory<Int, Photo>() {
-        override fun create(): DataSource<Int, Photo> {
-            return PhotosRemoteDataSource(scope, fetchPhotos)
+    override fun getRefreshKey(state: PagingState<Int, Photo>): Int? {
+        return state.anchorPosition?.let { anchorPosition ->
+            state.closestPageToPosition(anchorPosition)?.prevKey?.plus(1)
+                ?: state.closestPageToPosition(anchorPosition)?.nextKey?.minus(1)
         }
     }
 }

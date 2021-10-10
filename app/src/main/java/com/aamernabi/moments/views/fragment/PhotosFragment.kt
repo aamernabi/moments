@@ -17,16 +17,17 @@
 package com.aamernabi.moments.views.fragment
 
 import android.os.Bundle
-import android.view.LayoutInflater
 import android.view.View
-import android.view.ViewGroup
+import androidx.core.view.isVisible
 import androidx.fragment.app.Fragment
+import androidx.fragment.app.activityViewModels
 import androidx.lifecycle.ViewModelProvider
-import androidx.lifecycle.observe
+import androidx.lifecycle.lifecycleScope
 import androidx.navigation.Navigation
-import androidx.paging.PagedList
+import androidx.paging.CombinedLoadStates
+import androidx.paging.LoadState
+import androidx.paging.PagingData
 import com.aamernabi.core.dagger.Injectable
-import com.aamernabi.core.data.State
 import com.aamernabi.core.utils.delegates.viewBinding
 import com.aamernabi.moments.R
 import com.aamernabi.moments.databinding.FragmentPhotosBinding
@@ -35,52 +36,52 @@ import com.aamernabi.moments.utils.Errors
 import com.aamernabi.moments.utils.OnItemClickListener
 import com.aamernabi.moments.viewmodels.PhotosViewModel
 import com.aamernabi.moments.views.adapter.PhotoAdapter
+import kotlinx.coroutines.flow.collectLatest
+import kotlinx.coroutines.launch
 import javax.inject.Inject
 
-class PhotosFragment : Fragment(), OnItemClickListener,
+class PhotosFragment : Fragment(R.layout.fragment_photos), OnItemClickListener,
     Injectable {
 
     @Inject
     lateinit var viewModelFactory: ViewModelProvider.Factory
-    private lateinit var viewModel: PhotosViewModel
+    private val viewModel by activityViewModels<PhotosViewModel> { viewModelFactory }
 
     private val binding by viewBinding(FragmentPhotosBinding::bind)
-
-    override fun onCreateView(
-        inflater: LayoutInflater,
-        container: ViewGroup?,
-        savedInstanceState: Bundle?
-    ): View? {
-        return inflater.inflate(R.layout.fragment_photos, container, false)
-    }
+    private var adapter: PhotoAdapter? = null
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
-        val adapter = PhotoAdapter(this)
+        val adapter = PhotoAdapter(this).also { this.adapter = it }
         binding.recyclerView.adapter = adapter
-
-        activity?.let { activity ->
-            viewModel =
-                ViewModelProvider(activity, viewModelFactory).get(PhotosViewModel::class.java)
-        }
-
-        viewModel.photos.observe(viewLifecycleOwner, ::onPhotos)
-        viewModel.photosState.observe(requireActivity(), ::onPhotosState)
+        adapter.addLoadStateListener(::onPhotosState)
+        lifecycleScope.launch { viewModel.photos().collectLatest(::onPhotos) }
     }
 
-    private fun onPhotos(photos: PagedList<Photo>) {
+    private suspend fun onPhotos(photos: PagingData<Photo>) {
         val adapter = binding.recyclerView.adapter as? PhotoAdapter?
-        adapter?.submitList(photos)
+        adapter?.submitData(photos)
     }
 
-    private fun onPhotosState(state: State<Unit>) = when (state) {
-        is State.Loading -> showProgress()
-        is State.Success -> onSuccess()
-        is State.Error -> onError(state.t, state.code)
+    private fun onPhotosState(state: CombinedLoadStates) {
+        val adapter = adapter ?: return
+        val isEmpty = state.refresh is LoadState.NotLoading &&
+            state.append.endOfPaginationReached && adapter.itemCount == 0
+
+        binding.recyclerView.isVisible = state.source.refresh is LoadState.NotLoading && !isEmpty
+        //binding.emptyView.root.isVisible = isEmpty
+        binding.progressBar.isVisible = state.source.refresh is LoadState.Loading
+
+        val error = state.source.refresh as? LoadState.Error?
+        when {
+            adapter.itemCount == 0 && error != null -> onError(error.error, Errors.NO_DATA)
+        }
     }
 
     override fun onItemClick(index: Int) {
+        val adapter = adapter ?: return
+        viewModel.cachedPhotos = adapter.snapshot().items
         viewModel.currentIndex = index
         val navController = Navigation.findNavController(activity ?: return, R.id.nav_host_fragment)
         navController.navigate(R.id.fullScreenFragment)

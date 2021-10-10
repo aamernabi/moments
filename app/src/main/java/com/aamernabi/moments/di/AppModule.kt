@@ -17,8 +17,11 @@
 package com.aamernabi.moments.di
 
 import com.aamernabi.core.dagger.scopes.FeatureScope
+import com.aamernabi.moments.datasource.PhotosRepository
+import com.aamernabi.moments.datasource.PhotosRepositoryImpl
 import com.aamernabi.moments.datasource.remote.AuthenticationInterceptor
 import com.aamernabi.moments.datasource.remote.UnsplashApi
+import com.aamernabi.moments.datasource.remote.photos.PhotosService
 import com.aamernabi.moments.utils.Urls
 import com.jakewharton.retrofit2.adapter.kotlin.coroutines.CoroutineCallAdapterFactory
 import dagger.Module
@@ -60,5 +63,12 @@ class AppModule {
         @com.aamernabi.moments.di.UnsplashApi retrofit: Retrofit
     ): UnsplashApi {
         return retrofit.create(UnsplashApi::class.java)
+    }
+
+    @Provides
+    fun providePhotosRepository(
+        service: PhotosService
+    ): PhotosRepository {
+        return PhotosRepositoryImpl(service)
     }
 }

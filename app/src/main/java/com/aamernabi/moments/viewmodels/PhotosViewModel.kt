@@ -20,43 +20,29 @@ import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
-import androidx.paging.PagedList
-import androidx.paging.toLiveData
-import com.aamernabi.core.data.State
-import com.aamernabi.moments.datasource.PhotosRemoteDataSource
-import com.aamernabi.moments.datasource.remote.coroutineErrorHandler
+import androidx.paging.PagingData
+import androidx.paging.cachedIn
+import androidx.paging.map
+import com.aamernabi.moments.datasource.PhotosRepository
 import com.aamernabi.moments.datasource.remote.photos.Photo
-import com.aamernabi.moments.datasource.remote.photos.PhotosService
+import kotlinx.coroutines.flow.Flow
+import kotlinx.coroutines.flow.toList
+import kotlinx.coroutines.launch
 import javax.inject.Inject
 
 class PhotosViewModel @Inject constructor(
-    private val photosService: PhotosService
+    private val repository: PhotosRepository
 ) : ViewModel() {
-
-    private val _photosState = MutableLiveData<State<Unit>>()
-    val photosState: LiveData<State<Unit>> get() = _photosState
 
     private val _downloadImage = MutableLiveData<String>()
     val downloadImage: LiveData<String> get() = _downloadImage
+    var cachedPhotos: List<Photo>? = null
+
 
     var currentIndex = 0
 
-    val photos: LiveData<PagedList<Photo>> =
-        PhotosRemoteDataSource.Factory(viewModelScope, this::fetchPhotos).toLiveData(20)
-
-    private suspend fun fetchPhotos(page: Int): List<Photo> {
-        if (page == 1) {
-            _photosState.value = State.Loading
-        }
-
-        return try {
-            photosService.getPhotos(page).also {
-                if (page == 1) _photosState.value = State.Success(null)
-            }
-        } catch (e: Exception) {
-            _photosState.value = coroutineErrorHandler(e)
-            emptyList()
-        }
+    fun photos(): Flow<PagingData<Photo>> {
+        return repository.photos().cachedIn(viewModelScope)
     }
 
     fun downloadImage(full: String) {
