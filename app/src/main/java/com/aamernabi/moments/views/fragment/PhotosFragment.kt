@@ -30,12 +30,13 @@ import androidx.paging.PagingData
 import com.aamernabi.core.dagger.Injectable
 import com.aamernabi.core.utils.delegates.viewBinding
 import com.aamernabi.moments.R
+import com.aamernabi.moments.compose.NoInternet
 import com.aamernabi.moments.databinding.FragmentPhotosBinding
 import com.aamernabi.moments.datasource.remote.photos.Photo
-import com.aamernabi.moments.utils.Errors
 import com.aamernabi.moments.utils.OnItemClickListener
 import com.aamernabi.moments.viewmodels.PhotosViewModel
 import com.aamernabi.moments.views.adapter.PhotoAdapter
+import com.google.android.material.composethemeadapter.MdcTheme
 import kotlinx.coroutines.flow.collectLatest
 import kotlinx.coroutines.launch
 import javax.inject.Inject
@@ -70,12 +71,11 @@ class PhotosFragment : Fragment(R.layout.fragment_photos), OnItemClickListener,
             state.append.endOfPaginationReached && adapter.itemCount == 0
 
         binding.recyclerView.isVisible = state.source.refresh is LoadState.NotLoading && !isEmpty
-        //binding.emptyView.root.isVisible = isEmpty
         binding.progressBar.isVisible = state.source.refresh is LoadState.Loading
 
         val error = state.source.refresh as? LoadState.Error?
         when {
-            adapter.itemCount == 0 && error != null -> onError(error.error, Errors.NO_DATA)
+            adapter.itemCount == 0 && error != null -> onError(error.error)
         }
     }
 
@@ -89,24 +89,24 @@ class PhotosFragment : Fragment(R.layout.fragment_photos), OnItemClickListener,
 
     private fun onSuccess() {
         binding.progressBar.visibility = View.GONE
-        binding.tvNoInternet.visibility = View.GONE
+        binding.noInternet.visibility = View.GONE
         binding.recyclerView.visibility = View.VISIBLE
     }
 
     private fun showProgress() {
         binding.recyclerView.visibility = View.GONE
-        binding.tvNoInternet.visibility = View.GONE
+        binding.noInternet.visibility = View.GONE
         binding.progressBar.visibility = View.VISIBLE
     }
 
-    private fun onError(t: Throwable, errorCode: Int?) {
-        binding.progressBar.visibility = View.GONE
-
-        if (errorCode != Errors.NO_DATA) {
-            binding.recyclerView.visibility = View.GONE
-            binding.tvNoInternet.visibility = View.VISIBLE
-            binding.tvNoInternet.text =
-                if (t.message.isNullOrEmpty()) binding.tvNoInternet.text else t.message
+    private fun onError(t: Throwable) {
+        binding.noInternet.visibility = View.VISIBLE
+        val message =
+            t.message?.takeIf { it.trim().isNotEmpty() } ?: getString(R.string.no_internet)
+        binding.noInternet.setContent {
+            MdcTheme {
+                NoInternet(text = message, icon = R.drawable.ic_no_signal)
+            }
         }
     }
 }

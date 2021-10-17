@@ -25,17 +25,11 @@
         app:lottie_loop="true"
         app:lottie_autoPlay="true"/>
 
-    <androidx.appcompat.widget.AppCompatTextView
-        android:id="@+id/tv_no_internet"
-        style="@style/AppTheme.Text.Light.Body2"
+    <androidx.compose.ui.platform.ComposeView
+        android:id="@+id/no_internet"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_gravity="center"
-        android:layout_marginBottom="?attr/actionBarSize"
-        android:drawableTop="@drawable/ic_no_signal"
-        android:drawablePadding="@dimen/drawable_padding_top"
-        android:gravity="center"
-        android:text="@string/no_internet"
-        android:visibility="gone" />
+        android:layout_marginBottom="?attr/actionBarSize" />
 
 </FrameLayout>

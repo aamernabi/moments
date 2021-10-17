@@ -41,6 +41,12 @@ android {
     dataBinding {
         enabled = true
     }
+    buildFeatures {
+        compose true
+    }
+    composeOptions {
+        kotlinCompilerExtensionVersion "${v.compose}"
+    }
 }
 
 dependencies {
@@ -88,7 +94,17 @@ dependencies {
     implementation "com.google.firebase:firebase-crashlytics:$v.firebase_crashlytics"
     implementation "com.google.firebase:firebase-analytics:$v.firebase_analytics"
 
+    /*compose*/
+    implementation "androidx.activity:activity-compose:1.3.1"
+    implementation "com.google.android.material:compose-theme-adapter:$v.compose"
+    implementation "androidx.compose.material:material:$v.compose"
+    implementation "androidx.compose.animation:animation:$v.compose"
+    implementation "androidx.compose.ui:ui-tooling:$v.compose"
+
+    implementation "androidx.lifecycle:lifecycle-viewmodel-compose:2.4.0-rc01"
+
     testImplementation "junit:junit:$v.junit"
+    androidTestImplementation "androidx.compose.ui:ui-test-junit4:$v.compose"
     androidTestImplementation "androidx.test.ext:junit:$v.ext_junit"
     androidTestImplementation "androidx.test.espresso:espresso-core:$v.espresso"
 }
