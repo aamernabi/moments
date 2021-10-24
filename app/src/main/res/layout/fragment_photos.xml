@@ -6,13 +6,11 @@
     android:layout_height="match_parent"
     tools:context=".views.fragment.PhotosFragment">
 
-    <androidx.recyclerview.widget.RecyclerView
+    <androidx.compose.ui.platform.ComposeView
         android:id="@+id/recycler_view"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:layout_margin="0.5dp"
-        app:layoutManager="androidx.recyclerview.widget.GridLayoutManager"
-        app:spanCount="3" />
+        android:layout_margin="0.5dp" />
 
     <com.airbnb.lottie.LottieAnimationView
         android:id="@+id/progress_bar"

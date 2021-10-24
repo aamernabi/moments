@@ -18,6 +18,7 @@ package com.aamernabi.moments.views.fragment
 
 import android.os.Bundle
 import android.view.View
+import androidx.compose.foundation.ExperimentalFoundationApi
 import androidx.core.view.isVisible
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.activityViewModels
@@ -31,6 +32,7 @@ import com.aamernabi.core.dagger.Injectable
 import com.aamernabi.core.utils.delegates.viewBinding
 import com.aamernabi.moments.R
 import com.aamernabi.moments.compose.NoInternet
+import com.aamernabi.moments.compose.Photos
 import com.aamernabi.moments.databinding.FragmentPhotosBinding
 import com.aamernabi.moments.datasource.remote.photos.Photo
 import com.aamernabi.moments.utils.OnItemClickListener
@@ -51,18 +53,24 @@ class PhotosFragment : Fragment(R.layout.fragment_photos), OnItemClickListener,
     private val binding by viewBinding(FragmentPhotosBinding::bind)
     private var adapter: PhotoAdapter? = null
 
+    @OptIn(ExperimentalFoundationApi::class)
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
-        val adapter = PhotoAdapter(this).also { this.adapter = it }
+        /*val adapter = PhotoAdapter(this).also { this.adapter = it }
         binding.recyclerView.adapter = adapter
         adapter.addLoadStateListener(::onPhotosState)
-        lifecycleScope.launch { viewModel.photos().collectLatest(::onPhotos) }
+        lifecycleScope.launch { viewModel.photos().collectLatest(::onPhotos) }*/
+        binding.recyclerView.setContent {
+            MdcTheme {
+                Photos(viewModel.photos())
+            }
+        }
     }
 
     private suspend fun onPhotos(photos: PagingData<Photo>) {
-        val adapter = binding.recyclerView.adapter as? PhotoAdapter?
-        adapter?.submitData(photos)
+        /*val adapter = binding.recyclerView.adapter as? PhotoAdapter?
+        adapter?.submitData(photos)*/
     }
 
     private fun onPhotosState(state: CombinedLoadStates) {
