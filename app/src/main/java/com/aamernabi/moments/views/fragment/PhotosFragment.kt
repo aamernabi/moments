@@ -18,7 +18,6 @@ package com.aamernabi.moments.views.fragment
 
 import android.os.Bundle
 import android.view.View
-import androidx.compose.foundation.ExperimentalFoundationApi
 import androidx.core.view.isVisible
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.activityViewModels
@@ -32,7 +31,6 @@ import com.aamernabi.core.dagger.Injectable
 import com.aamernabi.core.utils.delegates.viewBinding
 import com.aamernabi.moments.R
 import com.aamernabi.moments.compose.NoInternet
-import com.aamernabi.moments.compose.Photos
 import com.aamernabi.moments.compose.PhotosScreen
 import com.aamernabi.moments.databinding.FragmentPhotosBinding
 import com.aamernabi.moments.datasource.remote.photos.Photo
@@ -40,8 +38,7 @@ import com.aamernabi.moments.utils.OnItemClickListener
 import com.aamernabi.moments.viewmodels.PhotosViewModel
 import com.aamernabi.moments.views.adapter.PhotoAdapter
 import com.google.android.material.composethemeadapter.MdcTheme
-import kotlinx.coroutines.flow.collectLatest
-import kotlinx.coroutines.launch
+import kotlinx.coroutines.flow.collect
 import javax.inject.Inject
 
 class PhotosFragment : Fragment(R.layout.fragment_photos), OnItemClickListener,
@@ -54,7 +51,6 @@ class PhotosFragment : Fragment(R.layout.fragment_photos), OnItemClickListener,
     private val binding by viewBinding(FragmentPhotosBinding::bind)
     private var adapter: PhotoAdapter? = null
 
-    @OptIn(ExperimentalFoundationApi::class)
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
@@ -63,7 +59,11 @@ class PhotosFragment : Fragment(R.layout.fragment_photos), OnItemClickListener,
         adapter.addLoadStateListener(::onPhotosState)
         lifecycleScope.launch { viewModel.photos().collectLatest(::onPhotos) }*/
         binding.recyclerView.setContent {
-            PhotosScreen(viewModel = viewModel, onPhotoClick = ::onPhotoClick)
+            PhotosScreen(viewModel = viewModel)
+        }
+
+        lifecycleScope.launchWhenStarted {
+            viewModel.photoClickEventFlow.collect { navigateUp() }
         }
     }
 
@@ -86,16 +86,14 @@ class PhotosFragment : Fragment(R.layout.fragment_photos), OnItemClickListener,
         }
     }
 
-    private fun onPhotoClick(index: Int, photos: List<Photo>) {
-        viewModel.cachedPhotos = photos
-        viewModel.currentIndex = index
+    private fun navigateUp() {
         val navController = Navigation.findNavController(activity ?: return, R.id.nav_host_fragment)
         navController.navigate(R.id.fullScreenFragment)
     }
 
     override fun onItemClick(index: Int) {
         val adapter = adapter ?: return
-        viewModel.cachedPhotos = adapter.snapshot().items
+        viewModel.photosCache = adapter.snapshot().items
         viewModel.currentIndex = index
         val navController = Navigation.findNavController(activity ?: return, R.id.nav_host_fragment)
         navController.navigate(R.id.fullScreenFragment)

@@ -30,11 +30,10 @@ import kotlinx.coroutines.flow.Flow
 @OptIn(ExperimentalFoundationApi::class)
 @Composable
 fun PhotosScreen(
-    viewModel: PhotosViewModel,
-    onPhotoClick: (Int, List<Photo>) -> Unit
+    viewModel: PhotosViewModel
 ) {
     MdcTheme {
-        Photos(viewModel.photos(), onClick = onPhotoClick)
+        Photos(viewModel.photos(), onClick = viewModel::onPhotoClick)
     }
 }
 

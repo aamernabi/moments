@@ -56,14 +56,14 @@ class FullScreenFragment : Fragment(), Injectable {
         binding.fabDownload.setOnClickListener { downloadImage() }
 
         binding.viewPager.adapter = FullScreenAdapter2()
-        viewModel.cachedPhotos?.let { submitList(it) }
+        viewModel.photosCache?.let { submitList(it) }
         binding.viewPager.setCurrentItem(viewModel.currentIndex, false)
 
         //viewModel.cachedPhotos.observe(viewLifecycleOwner, ::submitList)
     }
 
     private fun downloadImage() {
-        val image = viewModel.cachedPhotos?.let { it[viewModel.currentIndex] } ?: return
+        val image = viewModel.photosCache?.let { it[viewModel.currentIndex] } ?: return
         viewModel.downloadImage(image.urls.full)
     }
 
