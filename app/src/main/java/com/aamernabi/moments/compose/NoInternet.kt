@@ -19,11 +19,11 @@ import androidx.compose.ui.unit.dp
 @Composable
 fun NoInternet(
     text: String,
-    @DrawableRes icon: Int
+    @DrawableRes icon: Int,
+    modifier: Modifier = Modifier
 ) {
     Column(
-        modifier = Modifier
-            .fillMaxWidth()
+        modifier = modifier
             .padding(all = 16.dp),
         horizontalAlignment = Alignment.CenterHorizontally
     ) {
