@@ -33,6 +33,7 @@ import com.aamernabi.core.utils.delegates.viewBinding
 import com.aamernabi.moments.R
 import com.aamernabi.moments.compose.NoInternet
 import com.aamernabi.moments.compose.Photos
+import com.aamernabi.moments.compose.PhotosScreen
 import com.aamernabi.moments.databinding.FragmentPhotosBinding
 import com.aamernabi.moments.datasource.remote.photos.Photo
 import com.aamernabi.moments.utils.OnItemClickListener
@@ -62,9 +63,7 @@ class PhotosFragment : Fragment(R.layout.fragment_photos), OnItemClickListener,
         adapter.addLoadStateListener(::onPhotosState)
         lifecycleScope.launch { viewModel.photos().collectLatest(::onPhotos) }*/
         binding.recyclerView.setContent {
-            MdcTheme {
-                Photos(viewModel.photos())
-            }
+            PhotosScreen(viewModel = viewModel, onPhotoClick = ::onPhotoClick)
         }
     }
 
@@ -85,6 +84,13 @@ class PhotosFragment : Fragment(R.layout.fragment_photos), OnItemClickListener,
         when {
             adapter.itemCount == 0 && error != null -> onError(error.error)
         }
+    }
+
+    private fun onPhotoClick(index: Int, photos: List<Photo>) {
+        viewModel.cachedPhotos = photos
+        viewModel.currentIndex = index
+        val navController = Navigation.findNavController(activity ?: return, R.id.nav_host_fragment)
+        navController.navigate(R.id.fullScreenFragment)
     }
 
     override fun onItemClick(index: Int) {

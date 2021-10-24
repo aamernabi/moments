@@ -37,8 +37,6 @@ class PhotosViewModel @Inject constructor(
     private val _downloadImage = MutableLiveData<String>()
     val downloadImage: LiveData<String> get() = _downloadImage
     var cachedPhotos: List<Photo>? = null
-
-
     var currentIndex = 0
 
     fun photos(): Flow<PagingData<Photo>> {

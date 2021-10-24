@@ -15,32 +15,47 @@ import androidx.compose.ui.layout.ContentScale
 import androidx.compose.ui.res.colorResource
 import androidx.compose.ui.res.dimensionResource
 import androidx.compose.ui.unit.dp
+import androidx.navigation.Navigation
 import androidx.paging.PagingData
 import androidx.paging.compose.collectAsLazyPagingItems
 import coil.compose.rememberImagePainter
 import com.aamernabi.moments.R
 import com.aamernabi.moments.datasource.remote.photos.Photo
 import com.aamernabi.moments.utils.extensions.items
+import com.aamernabi.moments.utils.extensions.itemsIndexed
+import com.aamernabi.moments.viewmodels.PhotosViewModel
+import com.google.android.material.composethemeadapter.MdcTheme
 import kotlinx.coroutines.flow.Flow
+
+@OptIn(ExperimentalFoundationApi::class)
+@Composable
+fun PhotosScreen(
+    viewModel: PhotosViewModel,
+    onPhotoClick: (Int, List<Photo>) -> Unit
+) {
+    MdcTheme {
+        Photos(viewModel.photos(), onClick = onPhotoClick)
+    }
+}
 
 @ExperimentalFoundationApi
 @Composable
 fun Photos(
     photosFlow: Flow<PagingData<Photo>>,
     modifier: Modifier = Modifier,
-    onClick: (Photo) -> Unit = {}
+    onClick: (Int, List<Photo>) -> Unit
 ) {
     val photos = photosFlow.collectAsLazyPagingItems()
     LazyVerticalGrid(
         cells = GridCells.Fixed(3),
         modifier = modifier
     ) {
-        items(photos) { photo ->
-            photo ?: return@items
+        itemsIndexed(photos) { index, photo ->
+            photo ?: return@itemsIndexed
             Photo(
                 photo,
                 modifier = Modifier
-                    .clickable(onClick = { onClick(photo) })
+                    .clickable(onClick = { onClick(index, photos.itemSnapshotList.items) })
                     .padding(0.5.dp)
             )
         }

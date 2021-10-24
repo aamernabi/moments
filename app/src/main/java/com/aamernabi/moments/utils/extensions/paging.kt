@@ -15,3 +15,14 @@ fun <T : Any> LazyGridScope.items(
         itemContent(items[index])
     }
 }
+
+@ExperimentalFoundationApi
+fun <T : Any> LazyGridScope.itemsIndexed(
+    items: LazyPagingItems<T>,
+    itemContent: @Composable LazyItemScope.(index: Int, value: T?) -> Unit
+) {
+    items(count = items.itemCount) { index ->
+        itemContent(index, items[index])
+    }
+}
+
