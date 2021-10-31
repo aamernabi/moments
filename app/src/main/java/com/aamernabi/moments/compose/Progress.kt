@@ -24,7 +24,7 @@ fun Progress(
         LottieAnimation(
             composition = composition,
             progress = progress,
-            modifier = Modifier.size(dimensionResource(id = R.dimen.progress_bar))
+            //modifier = Modifier.size(dimensionResource(id = R.dimen.progress_bar))
         )
     }
 }
