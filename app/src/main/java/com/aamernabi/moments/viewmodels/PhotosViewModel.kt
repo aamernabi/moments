@@ -6,13 +6,11 @@ import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import androidx.paging.PagingData
 import androidx.paging.cachedIn
-import androidx.paging.map
 import com.aamernabi.moments.datasource.PhotosRepository
 import com.aamernabi.moments.datasource.remote.photos.Photo
 import kotlinx.coroutines.channels.Channel
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.receiveAsFlow
-import kotlinx.coroutines.flow.toList
 import kotlinx.coroutines.launch
 import javax.inject.Inject
 
@@ -32,17 +30,18 @@ class PhotosViewModel @Inject constructor(
     private val photoClickEventChannel = Channel<Unit>()
     val photoClickEventFlow = photoClickEventChannel.receiveAsFlow()
 
-    private var photosCacheFlow: Flow<PagingData<Photo>>? = null
+    private var _photosCacheFlow: Flow<PagingData<Photo>>? = null
+    val photosCacheFlow: Flow<PagingData<Photo>> get() = _photosCacheFlow!!
     var photosCache: List<Photo>? = null
     var currentIndex = 0
 
     fun photos(): Flow<PagingData<Photo>> {
-        val photosCacheFlow = photosCacheFlow
+        val photosCacheFlow = _photosCacheFlow
         if (photosCacheFlow != null) return photosCacheFlow
 
         return repository.photos()
             .cachedIn(viewModelScope)
-            .also { this.photosCacheFlow = it }
+            .also { this._photosCacheFlow = it }
     }
 
     fun downloadImage(full: String) {
